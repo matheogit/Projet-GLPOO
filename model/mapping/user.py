@@ -17,6 +17,11 @@ class User(Base):
 
     user_type = Column(String(50), nullable=False)
 
+    password = Column(String(256), nullable=False)
+
+    gender = Column(String(50), nullable=False)
+    age = Column(String(50), nullable=False)
+
     # https://docs.sqlalchemy.org/en/13/orm/inheritance.html
     __mapper_args__ = {
         'polymorphic_identity': 'user',
@@ -24,4 +29,4 @@ class User(Base):
     }
 
     def __repr__(self):
-        return "<user(%s %s %s)>" % (self.firstname, self.lastname.upper(), self.user_type)
+        return "<user(%s %s %s)>" % (self.firstname, self.lastname.upper(), self.user_type, self.email, self.gender, self.age)

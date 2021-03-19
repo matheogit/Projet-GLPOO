@@ -11,13 +11,16 @@ class CustomerBuilder:
     def __init__(self, store: Store):
         self._store = store
 
-    def create_user(self, username: str, firstname: str, lastname: str, email: str):
+    def create_user(self, username: str, firstname: str, lastname: str, email: str, password: str, gender: str, age: str):
 
         # Save user in database
         customer = Customer(username=username,
                             firstname=firstname,
                             lastname=lastname,
-                            email=email)
+                            email=email,
+                            password=password,
+                            gender=gender,
+                            age=age)
         UserValidation(customer).validate()
         self._store.user().create(customer)
         return customer

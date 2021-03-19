@@ -1,7 +1,8 @@
 **/.idea/*
+__pycache__
 *.pyc
 *.egg-info
-venv/*
+venv/
 .cache/*
 *.log
 .coverage
@@ -11,4 +12,4 @@ venv/*
 *.tar.gz
 *.zip
 *.db
-
+*.db-journal

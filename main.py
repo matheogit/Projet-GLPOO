@@ -1,25 +1,37 @@
-import sys
-
-from controller.member_controller import MemberController
 from model.database import DatabaseEngine
-from PySide6.QtWidgets import QApplication
-from vue.menu import MenuWindow
+from model.store import Store
+from exceptions import ResourceNotFound
+from model import *
 
-#https://realpython.com/python-pyqt-layout/
-#https://www.learnpyqt.com/tutorials/creating-multiple-windows/
+from view.main_view import MainView
 
 
-def run():
+def main():
+    print("## Welcome to the Shop ##\n")
+
     # Init db
     database_engine = DatabaseEngine(url='sqlite:///shop.db')
     database_engine.create_database()
-    admin_controller = MemberController(database_engine)
-    app = QApplication(sys.argv)
 
-    menu = MenuWindow(admin_controller)
+    # Database session is created when opening the app. All data will be commit in database at the end of the program.
+    with database_engine.new_session() as db_session:
+        # Init store object
+        store = Store(db_session)
 
-    sys.exit(app.exec_())
+        # Feed admin
+        try:
+            store.user().get_by_username('admin')
+        except ResourceNotFound:
+            admin = Admin(username="admin", firstname="admin", lastname="admin", email="contact@shop.fr")
+            db_session.add(admin)
+
+        try:
+            # Run main view
+            MainView(store).show()
+        except KeyboardInterrupt:
+            pass
+        print("See you soon ! Bye !")
 
 
-if __name__ == '__main__':
-    run()
+if __name__ == "__main__":
+    main()

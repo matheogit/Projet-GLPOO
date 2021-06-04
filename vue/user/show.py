@@ -4,28 +4,26 @@ from vue.user.edit import EditUserQt
 from vue.user.delete import DeleteUserQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
-from controller.member_controller import MemberController
 
 
-class ListUserQt(BasicWindow):
+class Party(BasicWindow):
 
-    def __init__(self, member_controller: MemberController):
+    def __init__(self):
         super().__init__()
 
-        self._member_controller = member_controller
-        self.addUserWindow = None
-        self.editUserWindow = None
-        self.deleteUserWindow = None
-        self.searchUserWindow = None
+        self.addPartyWindow = None
+        self.editPartyWindow = None
+        self.deletePartyWindow = None
+        self.searchPartyWindow = None
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
         self.listwidget = QListWidget()
 
-        self.btn_add_user = QPushButton('Add user', self)
-        self.btn_edit_user = QPushButton('Edit user', self)
-        self.btn_delete_user = QPushButton('Delete user', self)
-        self.btn_search_user = QPushButton('Search user', self)
+        self.btn_add_party = QPushButton('Create party', self)
+        self.btn_edit_party = QPushButton('Edit party', self)
+        self.btn_delete_party = QPushButton('Delete party', self)
+        self.btn_search_party = QPushButton('Search party', self)
 
         self.member_mapping = {}
 
@@ -37,14 +35,14 @@ class ListUserQt(BasicWindow):
 
         self.listwidget.clear()
         index = 0
-        for member in self._member_controller.list_members():
+        '''for member in self._member_controller.list_members():
             self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
                 member['firstname'],
                 member['lastname'],
                 member['email'],
                 member['type']))
             self.member_mapping[index] = member
-            index += 1
+            index += 1'''
 
         self.listwidget.clicked.connect(self.clicked)
         self.listwidget.resize(self.listwidget.sizeHint())
@@ -54,23 +52,23 @@ class ListUserQt(BasicWindow):
 
     def side_menu(self):
 
-        self.btn_add_user.resize(self.btn_add_user.sizeHint())
-        self.btn_add_user.move(60, 20)
-        self.btn_add_user.clicked.connect(self.add_user)
+        self.btn_add_party.resize(self.btn_add_party.sizeHint())
+        self.btn_add_party.move(60, 20)
+        self.btn_add_party.clicked.connect(self.add_party)
 
-        self.btn_edit_user.resize(self.btn_edit_user.sizeHint())
-        self.btn_edit_user.move(60, 40)
-        self.btn_edit_user.setEnabled(False)
-        self.btn_edit_user.clicked.connect(self.edit_user)
+        self.btn_edit_party.resize(self.btn_edit_party.sizeHint())
+        self.btn_edit_party.move(60, 40)
+        self.btn_edit_party.setEnabled(False)
+        self.btn_edit_party.clicked.connect(self.edit_party)
 
-        self.btn_delete_user.resize(self.btn_delete_user.sizeHint())
-        self.btn_delete_user.move(60, 60)
-        self.btn_delete_user.setEnabled(False)
-        self.btn_delete_user.clicked.connect(self.delete_user)
+        self.btn_delete_party.resize(self.btn_delete_party.sizeHint())
+        self.btn_delete_party.move(60, 60)
+        self.btn_delete_party.setEnabled(False)
+        self.btn_delete_party.clicked.connect(self.delete_party)
 
-        self.btn_search_user.resize(self.btn_edit_user.sizeHint())
-        self.btn_search_user.move(60, 80)
-        self.btn_search_user.clicked.connect(self.search_user)
+        self.btn_search_party.resize(self.btn_search_party.sizeHint())
+        self.btn_search_party.move(60, 80)
+        self.btn_search_party.clicked.connect(self.search_party)
 
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
@@ -78,44 +76,44 @@ class ListUserQt(BasicWindow):
         btn_quit.move(90, 100)
 
         buttonlayout = QVBoxLayout()
-        buttonlayout.addWidget(self.btn_add_user)
-        buttonlayout.addWidget(self.btn_edit_user)
-        buttonlayout.addWidget(self.btn_delete_user)
-        buttonlayout.addWidget(self.btn_search_user)
+        buttonlayout.addWidget(self.btn_add_party)
+        buttonlayout.addWidget(self.btn_edit_party)
+        buttonlayout.addWidget(self.btn_delete_party)
+        buttonlayout.addWidget(self.btn_search_party)
         buttonlayout.addWidget(btn_quit)
 
-        self.setGeometry(100, 100, 200, 150)
+        self.setGeometry(100, 100, 600, 600)
         self.setWindowTitle('User menu')
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
         item = self.listwidget.currentItem()
-        self.btn_edit_user.setEnabled(True)
-        self.btn_delete_user.setEnabled(True)
+        self.btn_edit_party.setEnabled(True)
+        self.btn_delete_party.setEnabled(True)
         print(item.text())
 
     def refresh(self):
         self.list()
         self.show()
 
-    def add_user(self):
-        if self.addUserWindow is None:
-            self.addUserWindow = AddUserQt(self._member_controller, self)
-        self.addUserWindow.show()
+    def add_party(self):
+        if self.addPartyWindow is None:
+            self.addPartyWindow = AddUserQt(self)
+        self.addPartyWindow.show()
 
-    def edit_user(self):
-        if self.editUserWindow is None:
+    def edit_party(self):
+        if self.editPartyWindow is None:
             user = self.member_mapping[self.listwidget.currentRow()]
-            self.editUserWindow = EditUserQt(self._member_controller, user['id'], self)
-        self.editUserWindow.show()
+            self.editPartyWindow = EditUserQt(self._member_controller, user['id'], self)
+        self.editPartyWindow.show()
 
-    def delete_user(self):
-        if self.deleteUserWindow is None:
+    def delete_party(self):
+        if self.deletePartyWindow is None:
             user = self.member_mapping[self.listwidget.currentRow()]
-            self.deleteUserWindow = DeleteUserQt(self._member_controller, user['id'], self)
-        self.deleteUserWindow.show()
+            self.deletePartyWindow = DeleteUserQt(self._member_controller, user['id'], self)
+        self.deletePartyWindow.show()
 
-    def search_user(self):
-        if self.searchUserWindow is None:
-            self.searchUserWindow = SearchUserQt(self._member_controller, self)
-        self.searchUserWindow.show()
+    def search_party(self):
+        if self.searchPartyWindow is None:
+            self.searchPartyWindow = SearchUserQt(self._member_controller, self)
+        self.searchPartyWindow.show()

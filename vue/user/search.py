@@ -2,13 +2,11 @@ from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, 
 from PySide6.QtGui import QCloseEvent
 from vue.user.edit import EditUserQt
 from vue.window import BasicWindow
-from controller.member_controller import MemberController
 
 
 class SearchUserQt(BasicWindow):
 
-    def __init__(self, member_controller: MemberController, show_vue: BasicWindow = None):
-        self._member_controller = member_controller
+    def __init__(self, show_vue: BasicWindow = None):
         super().__init__()
         ##
         self.first_name = QLineEdit()

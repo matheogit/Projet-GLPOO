@@ -36,17 +36,20 @@ class MainView(BasicWindow):
         self.setLayout(layout)
         self.show()
 
+
     def show(self):
         '''is_member = self._common.query_yes_no("Are you already a member ?")
         if is_member:
             return self.connect()
         else:
             return self.subscribe()'''
+        return self.connect()
 
     def connect(self):
         print("Connection")
         while True:
-            username = self._common.ask_name(key_name="username")
+            #username = self._common.ask_name(key_name="username")
+            username = "paul"
             try:
                 print(self._store.user().get_all())
                 user = self._store.user().get_by_username(username)

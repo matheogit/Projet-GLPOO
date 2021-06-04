@@ -1,6 +1,7 @@
 from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.user.show import Party
+from vue.user.list import PartyList
 
 
 class MenuWindow(BasicWindow):
@@ -48,7 +49,7 @@ class MenuWindow(BasicWindow):
 
     def list_party(self):
         if self.window is None:
-            self.window = ListParty()
+            self.window = PartyList()
         self.window.show()
 
     def rank_party(self):

@@ -36,5 +36,5 @@ class ListCommandsView(View):
             print("  date: %s" % command.date)
             print("  articles: ")
             for item in articles:
-                print("   - %s: %d" % (item.article.name, item.number))
+                print("   - %s: %d" % (item.party.name, item.number))
         print()

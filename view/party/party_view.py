@@ -69,12 +69,12 @@ class PartyView(View):
 
         if party_controller.get_grade() is not None:
             default_value = str(party_controller.get_grade())
-        grade = self._common.ask(key_name="grade", default=default_value)
+        grade = default_value
         party_controller.set_grade(str(grade))
 
         if party_controller.get_state() is not None:
             default_value = str(party_controller.get_state())
-        state = self._common.ask(key_name="state", default=default_value)
+        state = default_value
         party_controller.set_state(str(state))
 
         if party_controller.get_theme() is not None:

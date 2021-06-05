@@ -15,6 +15,7 @@ class PartyList(BasicWindow):
 
         self.listlayout = QGridLayout()
         self.listwidget = QListWidget()
+        self.setStyleSheet("background-color: #B6CFDF")
 
         self.btn_info_party = QPushButton('Party info', self)
         self.btn_search_party = QPushButton('Search party', self)

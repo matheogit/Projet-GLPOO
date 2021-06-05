@@ -10,6 +10,7 @@ class AddUserQt(BasicWindow):
         self._user = user
         self._store = store
         ##
+        self.setStyleSheet("background-color: #B08AAD")
 
         self.name = QLineEdit()
         self.place = QLineEdit()

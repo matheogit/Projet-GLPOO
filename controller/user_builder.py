@@ -30,3 +30,7 @@ class UserBuilder:
     def get_user_by_username(self, username: str):
         user = self._store.user().get_by_username(username)
         return user
+
+    def get_all_user(self):
+        users = self._store.user().get_all
+        return users

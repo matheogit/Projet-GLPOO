@@ -2,14 +2,18 @@ from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButto
 from vue.user.info import InfoUserQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
+from model.store import Store
+from controller.user_builder import UserBuilder
+from controller.party_controller import PartyController
 
 
 class PartyList(BasicWindow):
 
-    def __init__(self, user):
+    def __init__(self, user, store: Store):
         super().__init__()
 
-        self.user = user
+        self._user = user
+        self._store = store
         self.infoPartyWindow = None
         self.searchPartyWindow = None
         self.layout = QHBoxLayout()
@@ -28,17 +32,24 @@ class PartyList(BasicWindow):
         self.setLayout(self.layout)
 
     def list(self):
-
         self.listwidget.clear()
         index = 0
-        for user in self._member_controller.list_members():
-            self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
-                member['firstname'],
-                member['lastname'],
-                member['email'],
-                member['type']))
-            self.member_mapping[index] = member
-            index += 1
+
+        user_builder = UserBuilder(self._store)
+        users = user_builder.get_all_user()
+
+        for user in users:
+            partycontroller = PartyController(self._store)
+            partylist = partycontroller.get_parties_from_user(user)
+            for party in partylist:
+                self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
+                    party.name,
+                    party.date,
+                    party.location,
+                    party.theme,
+                    party.price))
+                self.party_mapping[index] = party
+                index += 1
 
         self.listwidget.clicked.connect(self.clicked)
         self.listwidget.resize(self.listwidget.sizeHint())

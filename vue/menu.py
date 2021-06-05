@@ -55,7 +55,7 @@ class MenuWindow(BasicWindow):
 
     def list_party(self):
         # if self.window is None:
-        self.window = PartyList()
+        self.window = PartyList(self._user, self._store)
         self.window.show()
 
 

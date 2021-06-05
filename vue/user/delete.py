@@ -1,11 +1,9 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton
 from vue.window import BasicWindow
-from controller.member_controller import MemberController
 
 
 class DeleteUserQt(BasicWindow):
-    def __init__(self, member_controller: MemberController, id: str, show_vue: BasicWindow = None):
-        self._member_controller = member_controller
+    def __init__(self, id: str, show_vue: BasicWindow = None):
         super().__init__()
         self.user_id = id
         self.first_name = QLineEdit()

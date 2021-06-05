@@ -5,9 +5,13 @@ from view.view import View
 from exceptions import ResourceNotFound
 from view.user_view_factory import UserViewFactory
 
-
 class MainView(View):
 
+    def __init__(self):
+        super().__init__()
+        self.listUserWindow = None
+        self.setup()
+    
     def __init__(self, store: Store):
         self._store = store
         self._common = Common()
@@ -21,11 +25,11 @@ class MainView(View):
 
     def connect(self):
         print("Connection")
+        user_builder = UserBuilder(self._store)
         while True:
             username = self._common.ask_name(key_name="username")
             try:
-                print(self._store.user().get_all())
-                user = self._store.user().get_by_username(username)
+                user = user_builder.get_user_by_username(username)
                 break
             except ResourceNotFound:
                 print("/!\\ User %s not exists" % username)
@@ -35,7 +39,6 @@ class MainView(View):
         # Show subscription formular
         user_builder = UserBuilder(self._store)
         print("Store user Subscription")
-        print()
 
         while True:
             # while username found in database, ark username again

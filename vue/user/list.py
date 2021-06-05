@@ -1,28 +1,22 @@
 from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout
-from vue.user.add import AddUserQt
-from vue.user.edit import EditUserQt
-from vue.user.delete import DeleteUserQt
+from vue.user.info import InfoUserQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
 
 
-class Party(BasicWindow):
+class PartyList(BasicWindow):
 
     def __init__(self):
         super().__init__()
 
-        self.addPartyWindow = None
-        self.editPartyWindow = None
-        self.deletePartyWindow = None
+        self.infoPartyWindow = None
         self.searchPartyWindow = None
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
         self.listwidget = QListWidget()
 
-        self.btn_add_party = QPushButton('Create party', self)
-        self.btn_edit_party = QPushButton('Edit party', self)
-        self.btn_delete_party = QPushButton('Delete party', self)
+        self.btn_info_party = QPushButton('Party info', self)
         self.btn_search_party = QPushButton('Search party', self)
 
         self.member_mapping = {}
@@ -52,19 +46,10 @@ class Party(BasicWindow):
 
     def side_menu(self):
 
-        self.btn_add_party.resize(self.btn_add_party.sizeHint())
-        self.btn_add_party.move(60, 20)
-        self.btn_add_party.clicked.connect(self.add_party)
-
-        self.btn_edit_party.resize(self.btn_edit_party.sizeHint())
-        self.btn_edit_party.move(60, 40)
-        self.btn_edit_party.setEnabled(False)
-        self.btn_edit_party.clicked.connect(self.edit_party)
-
-        self.btn_delete_party.resize(self.btn_delete_party.sizeHint())
-        self.btn_delete_party.move(60, 60)
-        self.btn_delete_party.setEnabled(False)
-        self.btn_delete_party.clicked.connect(self.delete_party)
+        self.btn_info_party.resize(self.btn_info_party.sizeHint())
+        self.btn_info_party.move(60, 20)
+        self.btn_info_party.setEnabled(False)
+        self.btn_info_party.clicked.connect(self.info_party)
 
         self.btn_search_party.resize(self.btn_search_party.sizeHint())
         self.btn_search_party.move(60, 80)
@@ -76,42 +61,27 @@ class Party(BasicWindow):
         btn_quit.move(90, 100)
 
         buttonlayout = QVBoxLayout()
-        buttonlayout.addWidget(self.btn_add_party)
-        buttonlayout.addWidget(self.btn_edit_party)
-        buttonlayout.addWidget(self.btn_delete_party)
+        buttonlayout.addWidget(self.btn_info_party)
         buttonlayout.addWidget(self.btn_search_party)
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 600, 600)
-        self.setWindowTitle('User menu')
+        self.setWindowTitle('Party list')
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
         item = self.listwidget.currentItem()
-        self.btn_edit_party.setEnabled(True)
-        self.btn_delete_party.setEnabled(True)
+        self.btn_info_party.setEnabled(True)
         print(item.text())
 
     def refresh(self):
         self.list()
         self.show()
 
-    def add_party(self):
-        if self.addPartyWindow is None:
-            self.addPartyWindow = AddUserQt(self)
-        self.addPartyWindow.show()
-
-    def edit_party(self):
-        if self.editPartyWindow is None:
-            user = self.member_mapping[self.listwidget.currentRow()]
-            self.editPartyWindow = EditUserQt(self._member_controller, user['id'], self)
-        self.editPartyWindow.show()
-
-    def delete_party(self):
-        if self.deletePartyWindow is None:
-            user = self.member_mapping[self.listwidget.currentRow()]
-            self.deletePartyWindow = DeleteUserQt(self._member_controller, user['id'], self)
-        self.deletePartyWindow.show()
+    def info_party(self):
+        if self.infoPartyWindow is None:
+            self.infoPartyWindow = InfoUserQt(self)
+        self.infoPartyWindow.show()
 
     def search_party(self):
         if self.searchPartyWindow is None:

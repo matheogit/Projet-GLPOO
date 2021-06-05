@@ -1,8 +1,9 @@
-from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox, QLabel
 from vue.window import BasicWindow
 from vue.menu import MenuWindow
 from controller.user_builder import UserBuilder
 from model.store import Store
+
 
 class Register(BasicWindow):
 
@@ -18,6 +19,7 @@ class Register(BasicWindow):
         self.email = QLineEdit()
         self.gender = QLineEdit()
         self.age = QLineEdit()
+        self.error = QLabel()
 
         self.password = QLineEdit()
         self.checkpassword = QLineEdit()
@@ -48,6 +50,8 @@ class Register(BasicWindow):
 
         Layout.addRow("Mot de passe", self.checkpassword)
 
+        Layout.addRow(self.error)
+
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
 
@@ -72,9 +76,12 @@ class Register(BasicWindow):
     def registerpage(self):
         user_builder = UserBuilder(self._store)
         if self.password.text() == self.checkpassword.text():
-            user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
-            self.close()
+            try:
+                user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
+                self.close()
+            except:
+                self.error.setText("Vous avez mal rempli les informations")
         else:
-            print("ERROR")
+            self.error.setText("Les mots de passes ne sont pas identiques")
         
 

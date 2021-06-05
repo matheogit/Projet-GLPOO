@@ -1,14 +1,13 @@
-from model.mapping import party
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
 from controller.party_controller import PartyController
 
-
 class AddUserQt(BasicWindow):
 
-    def __init__(self, store, show_vue: BasicWindow = None):
+    def __init__(self, user, store, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
+        self._user = user
         self._store = store
         ##
 
@@ -69,14 +68,15 @@ class AddUserQt(BasicWindow):
     def addParty(self):
         party_controller = PartyController(self._store)
         # Show subscription formular
-        party_controller.set_creator_id(str(1))
+        #print(user)
+        party_controller.set_creator_id(str(self._user.id))
         party_controller.set_date(str(self.date.text()))
         party_controller.set_location(str(self.place.text()))
         party_controller.set_name(str(self.name.text()))
         party_controller.set_theme(str(self.theme.currentText()))
         party_controller.set_total_place(str(self.nbPlace.text()))
         party_controller.set_price(str(self.cost.text()))
-        party_controller.set_grade(" ")
+        party_controller.set_grade("N/A")
         party_controller.set_state("En cours")
 
         party_controller.register()

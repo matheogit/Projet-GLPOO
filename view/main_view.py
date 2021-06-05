@@ -25,12 +25,11 @@ class MainView(View):
 
     def connect(self):
         print("Connection")
+        user_builder = UserBuilder(self._store)
         while True:
-            #username = self._common.ask_name(key_name="username")
-            username = "paul"
+            username = self._common.ask_name(key_name="username")
             try:
-                print(self._store.user().get_all())
-                user = self._store.user().get_by_username(username)
+                user = user_builder.get_user_by_username(username)
                 break
             except ResourceNotFound:
                 print("/!\\ User %s not exists" % username)

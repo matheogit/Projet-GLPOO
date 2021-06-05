@@ -1,4 +1,5 @@
 from model.mapping.party import Party
+from model.mapping.user import User
 from model.store import Store
 from exceptions import ResourceNotFound, Conflict
 
@@ -28,7 +29,7 @@ class PartyController:
         self._total_place = None
         self._creator_id = None
 
-    def from_party(self, party: Party):
+    def from_party(self, party: Party, user: User):
         self._id = party.id
         self._name = party.name
         self._price = party.price
@@ -36,7 +37,7 @@ class PartyController:
         self._theme = party.theme
         self._state = party.state
         self._grade = party.grade
-        self._creator_id = party.creator_id
+        self._creator_id = user.id
         self._date = party.date
         self._total_place = party.total_place
 

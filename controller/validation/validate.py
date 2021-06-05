@@ -12,7 +12,7 @@ class Validate:
         raise NotImplementedError()
 
     def _validate_name(self, value: str):
-        name_pattern = "^[\S-]{2,50}$"
+        name_pattern = "^[\S-]{1,50}$"
         self._validate_regex(value, name_pattern)
 
     def _validate_email(self, value):

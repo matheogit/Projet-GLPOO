@@ -1,17 +1,17 @@
 from view.view import View
 from view.common import Common
-from view.article.list_article_view import ListArticleView
+from view.party.list_party_view import ListPartyView
 
 from model.store import Store
 from model.mapping.customer import Customer
 from controller.command_builder import CommandBuilder
 
-from exceptions import InvalidData, Error, ResourceNotFound, NotEnoughArticle
+from exceptions import InvalidData, Error, ResourceNotFound, NotEnoughParties
 
 
 class CommandView(View):
     """
-    Command creation view. User will be able to add article in the basket and register the command at end.
+    Command creation view. User will be able to add party in the basket and register the command at end.
     He can exit the command, this one will not be register in database.
     """
 
@@ -38,29 +38,29 @@ class CommandView(View):
                     break
                 elif command == 'price':
                     print("Price: %d euros" % self._command.get_price())
-                elif command == 'articles':
-                    ListArticleView(self._store).show()
+                elif command == 'partys':
+                    ListPartyView(self._store).show()
                 elif command == 'basket':
                     self.show_basket()
                 elif command.startswith('add ') or command.startswith('update '):
                     if len(command.split(' ')) != 3:
                         print("Error with arguments")
                     else:
-                        action, article_name, number = command.split(' ')
+                        action, party_name, number = command.split(' ')
                         # TODO: check number is integer
-                        self.add_article(article_name, int(number), update=action == 'update')
+                        self.add_party(party_name, int(number), update=action == 'update')
                 elif command.startswith('del '):
                     if len(command.split(' ')) != 2:
                         print("Error with arguments")
                     else:
-                        _, article_name = command.split(' ')
-                        self.delete_article(article_name)
+                        _, party_name = command.split(' ')
+                        self.delete_party(party_name)
                 elif command.startswith('search '):
                     if len(command.split(' ')) != 2:
                         print("Error with arguments")
                     else:
                         _, search = command.split(' ')
-                        ListArticleView(self._store, search=search).show()
+                        ListPartyView(self._store, search=search).show()
                 else:
                     print("Unknown command")
             except InvalidData as e:
@@ -68,47 +68,47 @@ class CommandView(View):
             except Error as e:
                 self.error_message("An error occurred (%s)" % str(e))
 
-    def add_article(self, article_name: str, number: int, update: bool = False):
+    def add_party(self, party_name: str, number: int, update: bool = False):
         try:
-            article = self._store.article().get_by_name(article_name)
+            party = self._store.party().get_by_name(party_name)
         except ResourceNotFound:
-            print("Article %s not found" % article_name)
+            print("Party %s not found" % party_name)
             return
 
         try:
             if update:
-                self._command.update_number(article, number)
-                print("Article %s updated" % article_name)
+                self._command.update_number(party, number)
+                print("Party %s updated" % party_name)
             else:
-                self._command.add_article(article, number)
-                print("Article %s added" % article_name)
-        except NotEnoughArticle:
-            print("/!\\ Not enough article in store")
+                self._command.add_party(party, number)
+                print("Party %s added" % party_name)
+        except NotEnoughParties:
+            print("/!\\ Not enough party in store")
 
-    def delete_article(self, article_name: str):
+    def delete_party(self, party_name: str):
         try:
-            article = self._store.article().get_by_name(article_name)
+            party = self._store.party().get_by_name(party_name)
         except ResourceNotFound:
-            print("Article %s not found" % article_name)
+            print("Party %s not found" % party_name)
             return
-        self._command.remove_article(article)
-        print("Article %s deleted" % article_name)
+        self._command.remove_party(party)
+        print("Party %s deleted" % party_name)
 
     def show_basket(self):
         basket = self._command.get_basket()
         for item in basket:
-            print(" * %d x %s (%s)" % (item.number, item.article.name, item.article.description))
+            print(" * %d x %s (%s)" % (item.number, item.party.name, item.party.description))
 
     def help(self):
         print()
-        print("  * add <article> <number>: Add article in basket")
-        print("  * del <article>: Delete article in basket")
-        print("  * update <article> <number>: Update number article items")
-        print("  * articles: Show articles")
+        print("  * add <party> <number>: Add party in basket")
+        print("  * del <party>: Delete party in basket")
+        print("  * update <party> <number>: Update number party items")
+        print("  * parties: Show parties")
         print("  * basket: Show basket items")
         print("  * exit: Cancel command")
         print("  * help: show this help")
         print("  * price: Show command price")
         print("  * register: Register command")
-        print("  * search <string>: Search articles")
+        print("  * search <string>: Search parties")
         print()

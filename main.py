@@ -30,7 +30,7 @@ def main():
             # Run main view
             #MainView(store).show()
             home = LoginWindow(store)
-            sys.exit(app.exec_())
+            app.exec_()
         except KeyboardInterrupt:
             pass
         print("See you soon ! Bye !")

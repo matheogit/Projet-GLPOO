@@ -9,8 +9,6 @@ from vue.home import LoginWindow
 from view.main_view import MainView
 
 def main():
-    print("## Welcome to the Shop ##\n")
-
     # Init db
     database_engine = DatabaseEngine(url='sqlite:///shop.db')
     database_engine.create_database()
@@ -31,7 +29,7 @@ def main():
         try:
             # Run main view
             #MainView(store).show()
-            home = LoginWindow()
+            home = LoginWindow(store)
             sys.exit(app.exec_())
         except KeyboardInterrupt:
             pass

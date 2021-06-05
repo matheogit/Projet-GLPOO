@@ -30,11 +30,3 @@ class UserBuilder:
     def get_user_by_username(self, username: str):
         user = self._store.user().get_by_username(username)
         return user
-
-    def get_parties_from_user(self, user):
-        user_parties = []
-        parties = self._store.party().get_all()
-        for party in parties:
-            if (party.creator_id == user.id):
-                user_parties.append(party)
-        return user_parties

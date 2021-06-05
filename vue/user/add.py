@@ -1,7 +1,7 @@
-from model.mapping import party
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
 from controller.party_controller import PartyController
+from model.mapping.user import User
 
 
 class AddUserQt(BasicWindow):
@@ -50,13 +50,16 @@ class AddUserQt(BasicWindow):
         ValidationLayout = QVBoxLayout()
 
         btn_add = QPushButton('Add Party', self)
-        btn_add.clicked.connect(self.addParty)
+        print(self._store.user.id)
+        print(self._store.user().id)
+        print("cc")
+        btn_add.clicked.connect(self.addParty(self._store.user))
         btn_add.resize(btn_add.sizeHint())
         btn_add.move(90, 100)
         ValidationLayout.addWidget(btn_add)
         # Add some checkboxes to the layout
         btn_cancel = QPushButton('Close', self)
-        btn_cancel.clicked.connect(self.quitEvent)
+        btn_cancel.clicked.connect(self.quitEvent())
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)
         ValidationLayout.addWidget(btn_cancel)
@@ -66,17 +69,18 @@ class AddUserQt(BasicWindow):
         # Set the window's main layout
         self.setLayout(outerLayout)
 
-    def addParty(self):
+    def addParty(self, user):
         party_controller = PartyController(self._store)
         # Show subscription formular
-        party_controller.set_creator_id(str(1))
+        #print(user)
+        party_controller.set_creator_id(str(user.id))
         party_controller.set_date(str(self.date.text()))
         party_controller.set_location(str(self.place.text()))
         party_controller.set_name(str(self.name.text()))
         party_controller.set_theme(str(self.theme.currentText()))
         party_controller.set_total_place(str(self.nbPlace.text()))
         party_controller.set_price(str(self.cost.text()))
-        party_controller.set_grade(" ")
+        party_controller.set_grade("N/A")
         party_controller.set_state("En cours")
 
         party_controller.register()

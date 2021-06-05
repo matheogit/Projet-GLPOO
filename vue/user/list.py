@@ -25,7 +25,7 @@ class PartyList(BasicWindow):
         self.btn_info_party = QPushButton('Party info', self)
         self.btn_search_party = QPushButton('Search party', self)
 
-        self.member_mapping = {}
+        self.party_mapping = {}
 
         self.list()
         self.side_menu()

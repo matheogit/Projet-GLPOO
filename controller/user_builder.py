@@ -32,5 +32,5 @@ class UserBuilder:
         return user
 
     def get_all_user(self):
-        users = self._store.user().get_all
+        users = self._store.user().get_all()
         return users

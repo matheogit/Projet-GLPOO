@@ -19,8 +19,8 @@ class UserDAO(DAO):
 
     @dao_error_handler
     def get_all(self):
-        query = self._database_session.query(User).order_by(User.firstname)
-        return query.all()
+        query = self._database_session.query(User).order_by(User.firstname).all()
+        return query
 
     @dao_error_handler
     def get_by_name(self, firstname: str, lastname: str):

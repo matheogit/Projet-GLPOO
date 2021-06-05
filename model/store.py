@@ -1,5 +1,5 @@
 from model.dao.admin_dao import AdminDAO
-from model.dao.article_dao import ArticleDAO
+from model.dao.party_dao import PartyDAO
 from model.dao.customer_dao import CustomerDAO
 from model.dao.command_dao import CommandDAO
 from model.dao.user_dao import UserDAO
@@ -13,8 +13,8 @@ class Store:
     def admin(self):
         return AdminDAO(self._db_session)
 
-    def article(self):
-        return ArticleDAO(self._db_session)
+    def party(self):
+        return PartyDAO(self._db_session)
 
     def customer(self):
         return CustomerDAO(self._db_session)

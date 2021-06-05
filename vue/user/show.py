@@ -13,6 +13,8 @@ class Party(BasicWindow):
         self._user = user
         self._store = store
 
+        self.setStyleSheet("background-color: #B6CFDF")
+
         self.addPartyWindow = None
         self.editPartyWindow = None
         self.deletePartyWindow = None
@@ -26,6 +28,10 @@ class Party(BasicWindow):
         self.btn_edit_party = QPushButton('Edit party', self)
         self.btn_delete_party = QPushButton('Delete party', self)
         self.btn_search_party = QPushButton('Search party', self)
+        self.btn_add_party.setStyleSheet("background-color: #B08AAD")
+        self.btn_delete_party.setStyleSheet("background-color: #B08AAD")
+        self.btn_edit_party.setStyleSheet("background-color: #B08AAD")
+        self.btn_search_party.setStyleSheet("background-color: #B08AAD")
 
         self.member_mapping = {}
 
@@ -72,7 +78,8 @@ class Party(BasicWindow):
         self.btn_search_party.move(60, 80)
         self.btn_search_party.clicked.connect(self.search_party)
 
-        btn_quit = QPushButton('Close', self)
+        btn_quit = QPushButton('Quitter', self)
+        btn_quit.setStyleSheet("background-color: #B08AAD")
         btn_quit.clicked.connect(self.close)
         btn_quit.resize(btn_quit.sizeHint())
         btn_quit.move(90, 100)

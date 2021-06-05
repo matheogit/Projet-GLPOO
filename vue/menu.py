@@ -13,6 +13,8 @@ class MenuWindow(BasicWindow):
         self._store = store
         self.setup()
 
+        self.setStyleSheet("background-color: #B08AAD;")
+
     def setup(self):
         self.setWindowTitle('Menu principal')
 
@@ -23,16 +25,20 @@ class MenuWindow(BasicWindow):
 
         btn_my = QPushButton('Mes soirées', self)
         btn_my.clicked.connect(self.my_party)
+        btn_my.setStyleSheet("background-color: #B6CFDF;")
 
         btn_list = QPushButton('Liste des soirées', self)
         btn_list.clicked.connect(self.list_party)
+        btn_list.setStyleSheet("background-color: #B6CFDF;")
 
         btn_rank = QPushButton('Classement des soirées', self)
         btn_rank.clicked.connect(self.rank_party)
+        btn_rank.setStyleSheet("background-color: #B6CFDF;")
 
         btn_quit = QPushButton('Quitter', self)
         btn_quit.clicked.connect(QApplication.instance().quit)
-        
+        btn_quit.setStyleSheet("background-color: #B6CFDF;")
+
         layout = QGridLayout()
         layout.addWidget(btn_profil, 0, 0, 1, 1)
         layout.addWidget(textProfil, 0, 3, 1, 1)

@@ -8,6 +8,8 @@ class PartyRank(BasicWindow):
     def __init__(self):
         super().__init__()
 
+        self.setStyleSheet("background-color: #B6CFDF")
+
         self.infoPartyWindow = None
         self.layout = QHBoxLayout()
 
@@ -44,11 +46,13 @@ class PartyRank(BasicWindow):
         self.btn_info_party.resize(self.btn_info_party.sizeHint())
         self.btn_info_party.move(60, 20)
         self.btn_info_party.setEnabled(False)
+        self.btn_info_party.setStyleSheet("background-color: #B08AAD")
         self.btn_info_party.clicked.connect(self.info_party)
 
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
         btn_quit.resize(btn_quit.sizeHint())
+        btn_quit.setStyleSheet("background-color: #B6CFDF")
         btn_quit.move(90, 100)
 
         buttonlayout = QVBoxLayout()

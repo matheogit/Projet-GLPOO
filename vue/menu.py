@@ -3,14 +3,17 @@ from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
+from model.store import Store
+
 
 class MenuWindow(BasicWindow):
 
-    def __init__(self, user, store):
+    def __init__(self, user, store: Store):
         super().__init__()
         self.window = None
-        self._user = user
         self._store = store
+        self._user = user
+
         self.setup()
 
         self.setStyleSheet("background-color: #B08AAD;")
@@ -52,7 +55,7 @@ class MenuWindow(BasicWindow):
 
     def list_party(self):
         # if self.window is None:
-        self.window = PartyList()
+        self.window = PartyList(self._user, self._store)
         self.window.show()
 
 

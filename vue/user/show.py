@@ -4,16 +4,23 @@ from vue.user.edit import EditUserQt
 from vue.user.delete import DeleteUserQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
+from model.store import Store
+from controller.party_controller import PartyController
+
 
 
 class Party(BasicWindow):
 
-    def __init__(self, user, store):
+    def __init__(self, user, store: Store):
+
         super().__init__()
         self._user = user
         self._store = store
 
         self.setStyleSheet("background-color: #B6CFDF")
+
+        self._store = store
+        self._user = user
 
         self.addPartyWindow = None
         self.editPartyWindow = None
@@ -33,7 +40,7 @@ class Party(BasicWindow):
         self.btn_edit_party.setStyleSheet("background-color: #B08AAD")
         self.btn_search_party.setStyleSheet("background-color: #B08AAD")
 
-        self.member_mapping = {}
+        self.party_mapping = {}
 
         self.list()
         self.side_menu()
@@ -43,14 +50,17 @@ class Party(BasicWindow):
 
         self.listwidget.clear()
         index = 0
-        '''for member in self._member_controller.list_members():
-            self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
-                member['firstname'],
-                member['lastname'],
-                member['email'],
-                member['type']))
-            self.member_mapping[index] = member
-            index += 1'''
+        partycontroller = PartyController(self._store)
+        partylist = partycontroller.get_parties_from_user(self._user)
+        for party in partylist:
+            self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
+                party.name,
+                party.date,
+                party.location,
+                party.theme,
+                party.price))
+            self.party_mapping[index] = party
+            index += 1
 
         self.listwidget.clicked.connect(self.clicked)
         self.listwidget.resize(self.listwidget.sizeHint())

@@ -6,9 +6,10 @@ from vue.window import BasicWindow
 
 class PartyList(BasicWindow):
 
-    def __init__(self):
+    def __init__(self, user):
         super().__init__()
 
+        self.user = user
         self.infoPartyWindow = None
         self.searchPartyWindow = None
         self.layout = QHBoxLayout()
@@ -29,14 +30,14 @@ class PartyList(BasicWindow):
 
         self.listwidget.clear()
         index = 0
-        '''for member in self._member_controller.list_members():
+        for user in self._member_controller.list_members():
             self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
                 member['firstname'],
                 member['lastname'],
                 member['email'],
                 member['type']))
             self.member_mapping[index] = member
-            index += 1'''
+            index += 1
 
         self.listwidget.clicked.connect(self.clicked)
         self.listwidget.resize(self.listwidget.sizeHint())

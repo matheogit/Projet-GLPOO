@@ -4,12 +4,17 @@ from vue.user.edit import EditUserQt
 from vue.user.delete import DeleteUserQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
+from model.store import Store
+
 
 
 class Party(BasicWindow):
 
-    def __init__(self):
+    def __init__(self, user, store: Store):
         super().__init__()
+
+        self._store = store
+        self._user = user
 
         self.addPartyWindow = None
         self.editPartyWindow = None
@@ -35,7 +40,8 @@ class Party(BasicWindow):
 
         self.listwidget.clear()
         index = 0
-        '''for member in self._member_controller.list_members():
+        '''partylist = get_party_from_user(self.user)
+        for party in partylist:
             self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
                 member['firstname'],
                 member['lastname'],

@@ -4,25 +4,52 @@ from view.common import Common
 from view.view import View
 from exceptions import ResourceNotFound
 from view.user_view_factory import UserViewFactory
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
+from view.window import BasicWindow
 
 
-class MainView(View):
+class MainView(BasicWindow):
 
-    def __init__(self, store: Store):
-        self._store = store
-        self._common = Common()
+    def __init__(self):
+        super().__init__()
+        self.listUserWindow = None
+
+        self.setup()
+
+    def setup(self):
+        btn_list = QPushButton('plz', self)
+        btn_list.resize(btn_list.sizeHint())
+        btn_list.move(0, 0)
+        btn_list.clicked.connect(QApplication.instance().quit)
+
+        btn_quit = QPushButton('Quit', self)
+        btn_quit.clicked.connect(QApplication.instance().quit)
+        btn_quit.resize(btn_quit.sizeHint())
+        btn_quit.move(90, 100)
+
+        layout = QVBoxLayout()
+        layout.addWidget(btn_list)
+        layout.addWidget(btn_quit)
+
+        self.setGeometry(100, 100, 200, 150)
+        self.setWindowTitle('Shop application Menu')
+        self.setLayout(layout)
+        self.show()
+
 
     def show(self):
-        is_member = self._common.query_yes_no("Are you already a member ?")
+        '''is_member = self._common.query_yes_no("Are you already a member ?")
         if is_member:
             return self.connect()
         else:
-            return self.subscribe()
+            return self.subscribe()'''
+        return self.connect()
 
     def connect(self):
         print("Connection")
         while True:
-            username = self._common.ask_name(key_name="username")
+            #username = self._common.ask_name(key_name="username")
+            username = "paul"
             try:
                 print(self._store.user().get_all())
                 user = self._store.user().get_by_username(username)

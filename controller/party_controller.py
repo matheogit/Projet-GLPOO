@@ -48,6 +48,9 @@ class PartyController:
                 raise Conflict("Party %s existe déjà" % name)
             except ResourceNotFound:
                 self._name = name
+    
+    def get_name(self):
+        return self._name
 
     def set_location(self, location):
         self._location = location
@@ -76,7 +79,7 @@ class PartyController:
     def set_theme(self, theme):
         self._theme = theme
 
-    def get_pricetheme(self):
+    def get_theme(self):
         return self._theme
 
     

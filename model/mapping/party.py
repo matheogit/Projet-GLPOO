@@ -14,8 +14,8 @@ class Party(Base):
     location = Column(String(50), nullable=False)
     date = Column(String(50), nullable=False)
 
-    creator_id = Column(String(36), nullable=False)
-    total_place = Column(Integer, nullable=False) 
+    creator_id = Column(String(36), nullable=True)
+    total_place = Column(Integer, nullable=True) 
     theme = Column(String(256), nullable=True)
     price = Column(Integer, nullable=True)    
     grade = Column(String(256), nullable=True)

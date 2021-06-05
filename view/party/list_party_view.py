@@ -16,8 +16,13 @@ class ListPartyView(View):
             parties = self._store.party().search(self._search)
         else:
             parties = self._store.party().get_all()
-        print("Articles:")
+        print("Soirées:")
         for party in parties:
             print("- %s: %s" % (party.name, party.location))
-            print("     price: %d" % party.price)
-            print("     date: %d" % party.date)
+            print("     prix: %d €" % party.price)
+            print("     date: %s" % party.date)
+            print("     createur: %s" % party.creator_id)
+            print("     places totales: %s" % party.total_place)
+            print("     note: %s" % party.grade)
+            print("     état: %s" % party.state)
+            print("     theme: %s" % party.theme)

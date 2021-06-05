@@ -45,19 +45,42 @@ class PartyView(View):
         location = self._common.ask(key_name="location", default=party_controller.get_location())
         party_controller.set_location(location)
         default_value = None
+
         if party_controller.get_price() is not None:
             default_value = str(party_controller.get_price())
         price = self._common.ask(key_name="price", default=default_value)
         party_controller.set_price(float(price))
         default_value = None
-        if party_controller.get_number() is not None:
-            default_value = str(party_controller.get_number())
-        number = self._common.ask(key_name="number", regex="^\d+$",
-                                  default=default_value)
-        party_controller.set_number(int(number))
-        party_type = self._common.ask_name(key_name="party_type",
-                                             default=party_controller.get_party_type())
-        party_controller.set_party_type(party_type=party_type)
+
+        if party_controller.get_date() is not None:
+            default_value = str(party_controller.get_date())
+        date = self._common.ask(key_name="date", default=default_value)
+        party_controller.set_date(str(date))
+
+        if party_controller.get_creator_id() is not None:
+            default_value = str(party_controller.get_creator_id())                   ### recup l'ID de l'utilisateur
+        creator_id = self._common.ask(key_name="creator_id", default=default_value)
+        party_controller.set_creator_id(str(creator_id))
+
+        if party_controller.get_total_place() is not None:
+            default_value = str(party_controller.get_total_place())
+        total_place = self._common.ask(key_name="total_place", default=default_value)
+        party_controller.set_total_place(str(total_place))
+
+        if party_controller.get_grade() is not None:
+            default_value = str(party_controller.get_grade())
+        grade = self._common.ask(key_name="grade", default=default_value)
+        party_controller.set_grade(str(grade))
+
+        if party_controller.get_state() is not None:
+            default_value = str(party_controller.get_state())
+        state = self._common.ask(key_name="state", default=default_value)
+        party_controller.set_state(str(state))
+
+        if party_controller.get_theme() is not None:
+            default_value = str(party_controller.get_theme())
+        theme = self._common.ask(key_name="theme", default=default_value)
+        party_controller.set_theme(str(theme))
 
         party_controller.register()
 

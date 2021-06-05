@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QMessageBox, QLabel
 from vue.window import BasicWindow
 from vue.menu import MenuWindow
 from controller.user_builder import UserBuilder
@@ -17,6 +17,7 @@ class Login(BasicWindow):
 
         self.username = QLineEdit()
         self.password = QLineEdit()
+        self.error = QLabel()
 
         self.window = None
         self.setup()
@@ -31,6 +32,8 @@ class Login(BasicWindow):
         Layout.addRow("Utilisateur", self.username)
 
         Layout.addRow("Mot de passe", self.password)
+
+        Layout.addRow(self.error)
 
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
@@ -61,9 +64,9 @@ class Login(BasicWindow):
                 self.window.show()
                 self.close()
             else:
-                print("mauvais mot de passe")
+                self.error.setText("Mauvais mot de passe")
         except:
-            print("utilisateur inexistant")
+            self.error.setText("Utilisateur inexistant")
 
 
 

@@ -41,9 +41,8 @@ class LoginWindow(BasicWindow):
 
     def login(self):
         #if self.window is None:
-        self.window = Login()
+        self.window = Login(self._store)
         self.window.show()
-        test = 1
 
     def register(self):
         #if self.window is None:

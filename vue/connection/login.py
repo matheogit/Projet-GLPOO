@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, 
 from vue.window import BasicWindow
 from vue.menu import MenuWindow
 
-
 class Login(BasicWindow):
 
     def __init__(self):

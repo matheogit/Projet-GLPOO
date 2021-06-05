@@ -73,7 +73,8 @@ class Register(BasicWindow):
         user_builder = UserBuilder(self._store)
         if self.password.text() == self.checkpassword.text():
             user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
+            self.close()
         else:
             print("ERROR")
-        self.close()
+        
 

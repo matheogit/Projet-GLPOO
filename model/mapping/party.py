@@ -4,7 +4,6 @@ import uuid
 
 from sqlalchemy import Column, String, Integer, UniqueConstraint
 
-
 class Party(Base):
     __tablename__ = 'party'
     __table_args__ = (UniqueConstraint('name', 'location','date'),)

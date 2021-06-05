@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton
 from vue.window import BasicWindow
 
 
-class EditUserQt(BasicWindow):
+class InfoUserQt(BasicWindow):
     def __init__(self, id: str, show_vue: BasicWindow = None):
         super().__init__()
         self.user_id = id

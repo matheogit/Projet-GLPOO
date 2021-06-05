@@ -12,7 +12,7 @@ class UserBuilder:
         self._store = store
 
     def create_user(self, username: str, firstname: str, lastname: str, email: str, password: str, gender: str, age: str):
-
+        
         # Save user in database
         user = User(username=username,
                             firstname=firstname,
@@ -22,5 +22,10 @@ class UserBuilder:
                             gender=gender,
                             age=age)
         UserValidation(user).validate()
+    
         self._store.user().create(user)
+        return user
+
+    def get_user_by_username(self, username: str):
+        user = self._store.user().get_by_username(username)
         return user

@@ -1,18 +1,19 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
-from controller.member_controller import MemberController
 
 
 class AddUserQt(BasicWindow):
 
-    def __init__(self, member_controller: MemberController, show_vue: BasicWindow = None):
-        self._member_controller = member_controller
+    def __init__(self, show_vue: BasicWindow = None):
+        #self._member_controller = member_controller
         super().__init__()
         ##
-        self.first_name = QLineEdit()
-        self.last_name = QLineEdit()
-        self.email = QLineEdit()
-        self.type = QComboBox()
+
+        self.name = QLineEdit()
+        self.date = QLineEdit()
+        self.place = QLineEdit()
+        self.cost = QLineEdit()
+        self.theme = QComboBox()
 
         self.show_vue = show_vue
         self.setup()
@@ -24,20 +25,26 @@ class AddUserQt(BasicWindow):
         Layout = QFormLayout()
         # Add a label and a line edit to the form layout
 
-        Layout.addRow("First Name", self.first_name)
+        Layout.addRow("Name", self.name)
 
-        Layout.addRow("Last Name", self.last_name)
+        Layout.addRow("Date", self.date)
 
-        Layout.addRow("Email", self.email)
+        Layout.addRow("Place", self.place)
 
-        self.type.addItem("customer")
-        self.type.addItem("seller")
-        Layout.addRow("Account type", self.type)
+        Layout.addRow("Cost", self.cost)
+
+        self.theme.addItem("Halloween")
+        self.theme.addItem("Noel")
+        self.theme.addItem("Black and White")
+        self.theme.addItem("Sexy")
+        self.theme.addItem("None")
+
+        Layout.addRow("Theme", self.theme)
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
 
-        btn_add = QPushButton('Add User', self)
-        btn_add.clicked.connect(self.addUser)
+        btn_add = QPushButton('Add Party', self)
+        btn_add.clicked.connect(self.addParty)
         btn_add.resize(btn_add.sizeHint())
         btn_add.move(90, 100)
         ValidationLayout.addWidget(btn_add)
@@ -53,14 +60,15 @@ class AddUserQt(BasicWindow):
         # Set the window's main layout
         self.setLayout(outerLayout)
 
-    def addUser(self):
+    def addParty(self):
         # Show subscription formular
-        data = {'firstname': self.first_name.text(),
-                'lastname': self.last_name.text(),
-                'email': self.email.text(),
-                'type': self.type.currentText()}
+        data = {'Name': self.name.text(),
+                'Date': self.date.text(),
+                'Place': self.place.text(),
+                'Cost': self.cost.text(),
+                'Theme': self.theme.currentText()}
         print(data)
-        self._member_controller.create_member(data)
+        '''self._member_controller.create_member(data)
 
         members = self._member_controller.list_members()
 
@@ -70,7 +78,7 @@ class AddUserQt(BasicWindow):
                 member['firstname'].capitalize(),
                 member['lastname'].capitalize(),
                 member['email'],
-                member['type']))
+                member['type']))'''
         if self.show_vue is not None:
             self.show_vue.refresh()
         self.close()

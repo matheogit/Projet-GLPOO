@@ -6,7 +6,7 @@ from exceptions import ResourceNotFound
 from model import *
 from PySide6.QtWidgets import QApplication
 from vue.home import LoginWindow
-
+from view.main_view import MainView
 
 def main():
     # Init db
@@ -28,7 +28,7 @@ def main():
 
         try:
             # Run main view
-            #menu = MainView()
+            #MainView(store).show()
             home = LoginWindow()
             sys.exit(app.exec_())
         except KeyboardInterrupt:

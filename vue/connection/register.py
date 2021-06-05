@@ -7,10 +7,10 @@ from model.store import Store
 
 class Register(BasicWindow):
 
-    def __init__(self, show_vue: BasicWindow = None):
+    def __init__(self, store: Store, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
-        # self._store = Store
+        self._store = store
         ##
 
         self.pseudo = QLineEdit()
@@ -24,6 +24,7 @@ class Register(BasicWindow):
 
         self.window = None
         self.setup()
+        
 
     def setup(self):
         # Create an outer layout
@@ -69,9 +70,9 @@ class Register(BasicWindow):
         self.setLayout(outerLayout)
 
     def registerpage(self):
-        user = UserBuilder(self._store)
+        user_builder = UserBuilder(self._store)
         if self.password.text() == self.checkpassword.text():
-            user.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
+            user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
         else:
             print("ERROR")
         self.close()

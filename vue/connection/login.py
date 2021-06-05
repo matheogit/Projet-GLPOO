@@ -1,14 +1,17 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
 from vue.menu import MenuWindow
+from controller.user_builder import UserBuilder
+from model.store import Store
+
 
 class Login(BasicWindow):
 
-    def __init__(self):
+    def __init__(self, store: Store):
         #self._member_controller = member_controller
         super().__init__()
         ##
-
+        self._store = store
         self.show_vue = None
         self.window = None
 
@@ -50,8 +53,17 @@ class Login(BasicWindow):
         self.setLayout(outerLayout)
 
     def loginpage(self):
-        self.close()
-        self.window = MenuWindow()
-        self.window.show()
+        user_builder = UserBuilder(self._store)
+        try:
+            user = user_builder.get_user_by_username(self.username.text())
+            if user.password == self.password.text():
+                self.window = MenuWindow(user)
+                self.window.show()
+                self.close()
+            else:
+                print("mauvais mot de passe")
+        except:
+            print("utilisateur inexistant")
+
 
 

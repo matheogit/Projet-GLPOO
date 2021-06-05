@@ -29,6 +29,7 @@ def main():
         try:
             # Run main view
             #MainView(store).show()
+
             home = LoginWindow(store)
             app.exec_()
         except KeyboardInterrupt:

@@ -1,16 +1,16 @@
-from model.mapping.article import Article
+from model.mapping.party import Party
 from model.store import Store
 from exceptions import ResourceNotFound, Conflict
 
 
-class ArticleController:
+class PartyController:
     """
-    article create / update.
-    For update, create ArticleController and feed the controller with fom_article function
+    party create / update.
+    For update, create PartyController and feed the controller with fom_party function
     example:
-        article = store.article().get(...)
-        controller = ArticleController(store)
-        controller.from_article(article)
+        party = store.party().get(...)
+        controller = PartyController(store)
+        controller.from_party(party)
         controller.set_name("updated_name")
         controller.register()
     """
@@ -20,29 +20,66 @@ class ArticleController:
         self._id = None
         self._name = None
         self._price = None
-        self._number = None
-        self._description = None
-        self._article_type = None
+        self._location = None
+        self._date = None
+        self._grade = None
+        self._theme = None
+        self._state = None
+        self._total_place = None
+        self._creator_id = None
 
-    def from_article(self, article: Article):
-        self._id = article.id
-        self._name = article.name
-        self._price = article.price
-        self._number = article.number
-        self._description = article.description
-        self._article_type = article.article_type
+    def from_party(self, party: Party):
+        self._id = party.id
+        self._name = party.name
+        self._price = party.price
+        self._location = party.location
+        self._theme = party.theme
+        self._state = party.state
+        self._grade = party.grade
+        self._creator_id = party.creator_id
+        self._date = party.date
+        self._total_place = party.total_place
 
     def set_name(self, name):
         # check name not exists
         if self._name != name:
             try:
-                self._store.article().get_by_name(name)
-                raise Conflict("Article %s already exists" % name)
+                self._store.party().get_by_name(name)
+                raise Conflict("Party %s existe déjà" % name)
             except ResourceNotFound:
                 self._name = name
 
-    def get_name(self):
-        return self._name
+    def set_location(self, location):
+        self._location = location
+
+    def get_location(self):
+        return self._location
+
+    def set_creator_id(self, creator_id):
+        self._creator_id = creator_id
+
+    def get_creator_id(self):
+        return self._creator_id
+
+    def set_total_place(self, total_place):
+        self._total_place = total_place
+
+    def get_total_place(self):
+        return self._total_place
+
+    def set_date(self, date):
+        self._date = date
+
+    def get_date(self):
+        return self._date
+
+    def set_theme(self, theme):
+        self._theme = theme
+
+    def get_pricetheme(self):
+        return self._theme
+
+    
 
     def set_price(self, price):
         self._price = price
@@ -50,35 +87,33 @@ class ArticleController:
     def get_price(self):
         return self._price
 
-    def set_description(self, description):
-        self._description = description
+    def set_grade(self, grade):
+        self._grade = grade
 
-    def get_description(self):
-        return self._description
+    def get_grade(self):
+        return self._grade
 
-    def set_article_type(self, article_type):
-        self._article_type = article_type
+    def set_state(self, state):
+        self._state = state
 
-    def get_article_type(self):
-        return self._article_type
-
-    def set_number(self, number):
-        self._number = number
-
-    def get_number(self):
-        return self._number
+    def get_state(self):
+        return self._state
 
     def register(self):
-        article = Article(id=self._id,
+        party = Party(id=self._id,
                           name=self._name,
+                          location=self._location,
+                          date=self._date,
+                          creator_id=self._creator_id,
+                          total_place=self._total_place,
+                          theme=self._theme,
                           price=self._price,
-                          number=self._number,
-                          description=self._description,
-                          article_type=self._article_type)
+                          grade=self._grade,
+                          state=self._state)
         if self._id is None:
-            self._store.article().create(article)
-            self._id = article.id
+            self._store.party().create(party)
+            self._id = party.id
         else:
-            self._store.article().update(article)
-        return article
+            self._store.party().update(party)
+        return party
 

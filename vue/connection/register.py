@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
 from vue.menu import MenuWindow
+from controller.user_builder import UserBuilder
+from model.store import Store
 
 
 class Register(BasicWindow):
@@ -8,13 +10,15 @@ class Register(BasicWindow):
     def __init__(self, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
+        # self._store = Store
         ##
 
-        self.name = QLineEdit()
-        self.surname = QLineEdit()
+        self.pseudo = QLineEdit()
+        self.prenom = QLineEdit()
+        self.nom = QLineEdit()
         self.email = QLineEdit()
+        self.gender = QLineEdit()
         self.age = QLineEdit()
-        self.username = QLineEdit()
         self.password = QLineEdit()
         self.checkpassword = QLineEdit()
 
@@ -28,15 +32,17 @@ class Register(BasicWindow):
         Layout = QFormLayout()
         # Add a label and a line edit to the form layout
 
-        Layout.addRow("Prénom", self.name)
+        Layout.addRow("Pseudo", self.pseudo)
 
-        Layout.addRow("Nom", self.surname)
+        Layout.addRow("Prénom", self.prenom)
+
+        Layout.addRow("Nom", self.nom)
 
         Layout.addRow("Email", self.email)
 
-        Layout.addRow("Age", self.age)
+        Layout.addRow("Genre", self.gender)
 
-        Layout.addRow("Utilisateur", self.username)
+        Layout.addRow("Age", self.age)
 
         Layout.addRow("Mot de passe", self.password)
 
@@ -46,16 +52,16 @@ class Register(BasicWindow):
         ValidationLayout = QVBoxLayout()
 
         btn_register = QPushButton('Créer le compte', self)
-        btn_register.clicked.connect(self.registerpage)
         btn_register.resize(btn_register.sizeHint())
         btn_register.move(90, 100)
         ValidationLayout.addWidget(btn_register)
+        btn_register.clicked.connect(self.registerpage)
         # Add some checkboxes to the layout
         btn_cancel = QPushButton('Close', self)
-        btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)
         ValidationLayout.addWidget(btn_cancel)
+        btn_cancel.clicked.connect(self.quitEvent)
         # Nest the inner layouts into the outer layout
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
@@ -63,6 +69,10 @@ class Register(BasicWindow):
         self.setLayout(outerLayout)
 
     def registerpage(self):
-        self.window = MenuWindow()
-        self.window.show()
+        user = UserBuilder(self._store)
+        if self.password.text() == self.checkpassword.text():
+            user.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
+        else:
+            print("ERROR")
+        self.close()
 

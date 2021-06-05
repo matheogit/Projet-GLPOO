@@ -9,8 +9,6 @@ from vue.home import LoginWindow
 
 
 def main():
-    print("## Welcome to the Shop ##\n")
-
     # Init db
     database_engine = DatabaseEngine(url='sqlite:///shop.db')
     database_engine.create_database()

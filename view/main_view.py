@@ -62,7 +62,6 @@ class MainView(BasicWindow):
         # Show subscription formular
         user_builder = UserBuilder(self._store)
         print("Store user Subscription")
-        print()
 
         while True:
             # while username found in database, ark username again

@@ -1,5 +1,5 @@
 from model.mapping.user import User
-from view.customer_view import CustomerView
+from view.user_view import UserView
 from view.admin_view import AdminView
 from exceptions import Error
 from model.store import Store
@@ -16,8 +16,8 @@ class UserViewFactory:
         self._store = store
 
     def show(self):
-        if self._user.user_type == 'customer':
-            return CustomerView(self._user, self._store).show()
+        if self._user.user_type == 'user':
+            return UserView(self._user, self._store).show()
         elif self._user.user_type == 'admin':
             return AdminView(self._user, self._store).show()
         raise Error()

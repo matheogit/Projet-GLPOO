@@ -22,7 +22,7 @@ def main():
         try:
             store.user().get_by_username('admin')
         except ResourceNotFound:
-            admin = Admin(username="admin", firstname="admin", lastname="admin", email="contact@shop.fr")
+            admin = Admin(username="admin", firstname="admin", lastname="admin", email="contact@shop.fr", password="AZERTY", gender="admin", age="20")
             db_session.add(admin)
 
         try:

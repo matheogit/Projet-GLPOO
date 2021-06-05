@@ -13,6 +13,9 @@ class Register(BasicWindow):
         self._store = store
         ##
 
+        self.setStyleSheet("background-color: #B08AAD;")
+
+
         self.pseudo = QLineEdit()
         self.prenom = QLineEdit()
         self.nom = QLineEdit()
@@ -58,12 +61,14 @@ class Register(BasicWindow):
         btn_register = QPushButton('Créer le compte', self)
         btn_register.resize(btn_register.sizeHint())
         btn_register.move(90, 100)
+        btn_register.setStyleSheet("background-color: #B6CFDF;")
         ValidationLayout.addWidget(btn_register)
         btn_register.clicked.connect(self.registerpage)
         # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Close', self)
+        btn_cancel = QPushButton('Fermer', self)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)
+        btn_cancel.setStyleSheet("background-color: #B6CFDF;")
         ValidationLayout.addWidget(btn_cancel)
         btn_cancel.clicked.connect(self.quitEvent)
 
@@ -83,5 +88,3 @@ class Register(BasicWindow):
                 self.error.setText("Vous avez mal rempli les informations")
         else:
             self.error.setText("Les mots de passes ne sont pas identiques")
-        
-

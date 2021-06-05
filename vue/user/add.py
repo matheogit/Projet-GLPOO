@@ -1,17 +1,20 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
-
+from controller.party_controller import PartyController
 
 class AddUserQt(BasicWindow):
 
-    def __init__(self, show_vue: BasicWindow = None):
+    def __init__(self, user, store, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
+        self._user = user
+        self._store = store
         ##
 
         self.name = QLineEdit()
-        self.date = QLineEdit()
         self.place = QLineEdit()
+        self.date = QLineEdit()
+        self.nbPlace = QLineEdit()
         self.cost = QLineEdit()
         self.theme = QComboBox()
 
@@ -27,9 +30,11 @@ class AddUserQt(BasicWindow):
 
         Layout.addRow("Name", self.name)
 
+        Layout.addRow("Lieu", self.place)
+
         Layout.addRow("Date", self.date)
 
-        Layout.addRow("Place", self.place)
+        Layout.addRow("nbPlace", self.nbPlace)
 
         Layout.addRow("Cost", self.cost)
 
@@ -61,25 +66,20 @@ class AddUserQt(BasicWindow):
         self.setLayout(outerLayout)
 
     def addParty(self):
+        party_controller = PartyController(self._store)
         # Show subscription formular
-        data = {'Name': self.name.text(),
-                'Date': self.date.text(),
-                'Place': self.place.text(),
-                'Cost': self.cost.text(),
-                'Theme': self.theme.currentText()}
-        print(data)
-        '''self._member_controller.create_member(data)
+        #print(user)
+        party_controller.set_creator_id(str(self._user.id))
+        party_controller.set_date(str(self.date.text()))
+        party_controller.set_location(str(self.place.text()))
+        party_controller.set_name(str(self.name.text()))
+        party_controller.set_theme(str(self.theme.currentText()))
+        party_controller.set_total_place(str(self.nbPlace.text()))
+        party_controller.set_price(str(self.cost.text()))
+        party_controller.set_grade("N/A")
+        party_controller.set_state("En cours")
 
-        members = self._member_controller.list_members()
+        party_controller.register()
 
-        print("Members: ")
-        for member in members:
-            print("* %s %s (%s) - %s" % (
-                member['firstname'].capitalize(),
-                member['lastname'].capitalize(),
-                member['email'],
-                member['type']))'''
-        if self.show_vue is not None:
-            self.show_vue.refresh()
         self.close()
 

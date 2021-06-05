@@ -12,6 +12,7 @@ class LoginWindow(BasicWindow):
         super().__init__()
         self.window = None
         self._store = store
+        self.setStyleSheet("color: #000000;" "background-color: #B6CFDF;")
 
         self.setup()
 
@@ -19,12 +20,15 @@ class LoginWindow(BasicWindow):
 
         btn_login = QPushButton('Se connecter', self)
         btn_login.clicked.connect(self.login)
+        btn_login.setStyleSheet("background-color: #B08AAD;")
 
         btn_register = QPushButton('Créer un compte', self)
         btn_register.clicked.connect(self.register)
+        btn_register.setStyleSheet("background-color: #B08AAD;")
 
         btn_quit = QPushButton('Quitter', self)
         btn_quit.clicked.connect(QApplication.instance().quit)
+        btn_quit.setStyleSheet("background-color: #B08AAD;")
 
         layout = QVBoxLayout()
         layout.addWidget(btn_login)

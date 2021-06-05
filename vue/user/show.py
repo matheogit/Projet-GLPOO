@@ -11,7 +11,12 @@ from model.store import Store
 class Party(BasicWindow):
 
     def __init__(self, user, store: Store):
+
         super().__init__()
+        self._user = user
+        self._store = store
+
+        self.setStyleSheet("background-color: #B6CFDF")
 
         self._store = store
         self._user = user
@@ -29,6 +34,10 @@ class Party(BasicWindow):
         self.btn_edit_party = QPushButton('Edit party', self)
         self.btn_delete_party = QPushButton('Delete party', self)
         self.btn_search_party = QPushButton('Search party', self)
+        self.btn_add_party.setStyleSheet("background-color: #B08AAD")
+        self.btn_delete_party.setStyleSheet("background-color: #B08AAD")
+        self.btn_edit_party.setStyleSheet("background-color: #B08AAD")
+        self.btn_search_party.setStyleSheet("background-color: #B08AAD")
 
         self.member_mapping = {}
 
@@ -76,7 +85,8 @@ class Party(BasicWindow):
         self.btn_search_party.move(60, 80)
         self.btn_search_party.clicked.connect(self.search_party)
 
-        btn_quit = QPushButton('Close', self)
+        btn_quit = QPushButton('Quitter', self)
+        btn_quit.setStyleSheet("background-color: #B08AAD")
         btn_quit.clicked.connect(self.close)
         btn_quit.resize(btn_quit.sizeHint())
         btn_quit.move(90, 100)
@@ -104,7 +114,7 @@ class Party(BasicWindow):
 
     def add_party(self):
         if self.addPartyWindow is None:
-            self.addPartyWindow = AddUserQt(self)
+            self.addPartyWindow = AddUserQt(self._user, self._store)
         self.addPartyWindow.show()
 
     def edit_party(self):

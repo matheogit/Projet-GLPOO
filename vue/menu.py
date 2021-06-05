@@ -9,7 +9,7 @@ class MenuWindow(BasicWindow):
     def __init__(self, user, store):
         super().__init__()
         self.window = None
-        self.user = user
+        self._user = user
         self._store = store
         self.setup()
 
@@ -40,7 +40,7 @@ class MenuWindow(BasicWindow):
 
     def my_party(self):
         # if self.window is None:
-        self.window = Party(self._store)
+        self.window = Party(self._user, self._store)
         self.window.show()
 
 

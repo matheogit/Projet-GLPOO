@@ -1,14 +1,13 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox
 from vue.window import BasicWindow
 from controller.party_controller import PartyController
-from model.mapping.user import User
-
 
 class AddUserQt(BasicWindow):
 
-    def __init__(self, store, show_vue: BasicWindow = None):
+    def __init__(self, user, store, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
+        self._user = user
         self._store = store
         ##
 
@@ -50,16 +49,13 @@ class AddUserQt(BasicWindow):
         ValidationLayout = QVBoxLayout()
 
         btn_add = QPushButton('Add Party', self)
-        print(self._store.user.id)
-        print(self._store.user().id)
-        print("cc")
-        btn_add.clicked.connect(self.addParty(self._store.user))
+        btn_add.clicked.connect(self.addParty)
         btn_add.resize(btn_add.sizeHint())
         btn_add.move(90, 100)
         ValidationLayout.addWidget(btn_add)
         # Add some checkboxes to the layout
         btn_cancel = QPushButton('Close', self)
-        btn_cancel.clicked.connect(self.quitEvent())
+        btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)
         ValidationLayout.addWidget(btn_cancel)
@@ -69,11 +65,11 @@ class AddUserQt(BasicWindow):
         # Set the window's main layout
         self.setLayout(outerLayout)
 
-    def addParty(self, user):
+    def addParty(self):
         party_controller = PartyController(self._store)
         # Show subscription formular
         #print(user)
-        party_controller.set_creator_id(str(user.id))
+        party_controller.set_creator_id(str(self._user.id))
         party_controller.set_date(str(self.date.text()))
         party_controller.set_location(str(self.place.text()))
         party_controller.set_name(str(self.name.text()))

@@ -128,3 +128,7 @@ class PartyController:
             if (party.creator_id == user.id):
                 user_parties.append(party)
         return user_parties
+
+    def get_all_parties(self):
+        parties = self._store.party().get_all()
+        return parties

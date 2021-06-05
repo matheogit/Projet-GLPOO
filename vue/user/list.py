@@ -3,7 +3,6 @@ from vue.user.info import InfoUserQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
 from model.store import Store
-from controller.user_builder import UserBuilder
 from controller.party_controller import PartyController
 
 
@@ -35,21 +34,17 @@ class PartyList(BasicWindow):
         self.listwidget.clear()
         index = 0
 
-        user_builder = UserBuilder(self._store)
-        users = user_builder.get_all_user()
-
-        for user in users:
-            partycontroller = PartyController(self._store)
-            partylist = partycontroller.get_parties_from_user(user)
-            for party in partylist:
-                self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
-                    party.name,
-                    party.date,
-                    party.location,
-                    party.theme,
-                    party.price))
-                self.party_mapping[index] = party
-                index += 1
+        partycontroller = PartyController(self._store)
+        partylist = partycontroller.get_all_parties()
+        for party in partylist:
+            self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
+                party.name,
+                party.date,
+                party.location,
+                party.theme,
+                party.price))
+            self.party_mapping[index] = party
+            index += 1
 
         self.listwidget.clicked.connect(self.clicked)
         self.listwidget.resize(self.listwidget.sizeHint())

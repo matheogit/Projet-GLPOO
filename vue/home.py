@@ -3,7 +3,9 @@ from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.connection.login import Login
 from vue.connection.register import Register
-
+from vue.user.show import Party
+from vue.user.list import PartyList
+from vue.user.rank import PartyRank
 
 
 class LoginWindow(BasicWindow):
@@ -39,13 +41,10 @@ class LoginWindow(BasicWindow):
 
     def login(self):
         #if self.window is None:
-        self.window = Login()
+        self.window = Login(self._store)
         self.window.show()
-        test = 1
 
     def register(self):
         #if self.window is None:
         self.window = Register(self._store)
         self.window.show()
-
-

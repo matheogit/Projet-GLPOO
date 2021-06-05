@@ -4,7 +4,6 @@ from vue.menu import MenuWindow
 from controller.user_builder import UserBuilder
 from model.store import Store
 
-
 class Register(BasicWindow):
 
     def __init__(self, store: Store, show_vue: BasicWindow = None):
@@ -19,12 +18,12 @@ class Register(BasicWindow):
         self.email = QLineEdit()
         self.gender = QLineEdit()
         self.age = QLineEdit()
+
         self.password = QLineEdit()
         self.checkpassword = QLineEdit()
 
         self.window = None
         self.setup()
-        
 
     def setup(self):
         # Create an outer layout
@@ -63,6 +62,7 @@ class Register(BasicWindow):
         btn_cancel.move(90, 100)
         ValidationLayout.addWidget(btn_cancel)
         btn_cancel.clicked.connect(self.quitEvent)
+
         # Nest the inner layouts into the outer layout
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
@@ -73,7 +73,8 @@ class Register(BasicWindow):
         user_builder = UserBuilder(self._store)
         if self.password.text() == self.checkpassword.text():
             user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
+            self.close()
         else:
             print("ERROR")
-        self.close()
+        
 

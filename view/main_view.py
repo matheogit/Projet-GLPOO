@@ -4,6 +4,8 @@ from view.common import Common
 from view.view import View
 from exceptions import ResourceNotFound
 from view.user_view_factory import UserViewFactory
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
+from view.window import BasicWindow
 
 class MainView(View):
 
@@ -17,17 +19,19 @@ class MainView(View):
         self._common = Common()
 
     def show(self):
-        is_member = self._common.query_yes_no("Are you already a member ?")
+        '''is_member = self._common.query_yes_no("Are you already a member ?")
         if is_member:
             return self.connect()
         else:
-            return self.subscribe()
+            return self.subscribe()'''
+        return self.connect()
 
     def connect(self):
         print("Connection")
         user_builder = UserBuilder(self._store)
         while True:
-            username = self._common.ask_name(key_name="username")
+            #username = self._common.ask_name(key_name="username")
+            username = "paul"
             try:
                 user = user_builder.get_user_by_username(username)
                 break

@@ -19,6 +19,7 @@ class Login(BasicWindow):
         self.password = QLineEdit()
 
         self.window = None
+        self.setStyleSheet("color: #000000;" "background-color: #B6CFDF;")
         self.setup()
 
     def setup(self):
@@ -38,12 +39,14 @@ class Login(BasicWindow):
         btn_login = QPushButton('Se connecter', self)
         btn_login.clicked.connect(self.loginpage)
         btn_login.resize(btn_login.sizeHint())
+        btn_login.setStyleSheet("background-color: #B08AAD;")
         btn_login.move(90, 100)
         ValidationLayout.addWidget(btn_login)
         # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Close', self)
+        btn_cancel = QPushButton('Quitter', self)
         btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
+        btn_cancel.setStyleSheet("background-color: #B08AAD;")
         btn_cancel.move(90, 100)
         ValidationLayout.addWidget(btn_cancel)
         # Nest the inner layouts into the outer layout
@@ -61,9 +64,9 @@ class Login(BasicWindow):
                 self.window.show()
                 self.close()
             else:
-                print("mauvais mot de passe")
+                print("Mauvais mot de passe")
         except:
-            print("utilisateur inexistant")
+            print("Utilisateur inexistant")
 
 
 

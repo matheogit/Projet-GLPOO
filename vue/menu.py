@@ -1,5 +1,5 @@
 from vue.window import BasicWindow
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QGridLayout, QWidget
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
@@ -8,11 +8,18 @@ class MenuWindow(BasicWindow):
 
     def __init__(self, user):
         super().__init__()
-        self.window = None
+        self.window = QWidget()
         self.user = user
         self.setup()
 
     def setup(self):
+        self.setWindowTitle('Home')
+
+        btn_profil = QPushButton('Profil', self)
+        #btn_profil.clicked.connect(self.)
+
+        textProfil = QLabel('Bonjour, ' + self.user.username)
+
         btn_my = QPushButton('Mes soirées', self)
         btn_my.clicked.connect(self.my_party)
 
@@ -24,15 +31,17 @@ class MenuWindow(BasicWindow):
 
         btn_quit = QPushButton('Quitter', self)
         btn_quit.clicked.connect(QApplication.instance().quit)
-
-        layout = QVBoxLayout()
-        layout.addWidget(btn_my)
-        layout.addWidget(btn_list)
-        layout.addWidget(btn_rank)
-        layout.addWidget(btn_quit)
+        
+        layout = QGridLayout()
+        layout.addWidget(btn_profil, 0, 0, 1, 1)
+        layout.addWidget(textProfil, 0, 3, 1, 1)
+        layout.addWidget(btn_my, 1, 1, 1, 1)
+        layout.addWidget(btn_list, 2, 1, 1, 1)
+        layout.addWidget(btn_rank, 3, 1, 1, 1)
+        layout.addWidget(btn_quit, 4, 1, 1, 1)
+        layout.setRowStretch(4, 1)
 
         self.setGeometry(100, 100, 600, 600)
-        self.setWindowTitle('Shop application Menu')
         self.setLayout(layout)
         self.show()
 

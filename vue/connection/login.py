@@ -57,7 +57,7 @@ class Login(BasicWindow):
         try:
             user = user_builder.get_user_by_username(self.username.text())
             if user.password == self.password.text():
-                self.window = MenuWindow(user)
+                self.window = MenuWindow(user, self._store)
                 self.window.show()
                 self.close()
             else:

@@ -6,10 +6,11 @@ from vue.user.rank import PartyRank
 
 class MenuWindow(BasicWindow):
 
-    def __init__(self, user):
+    def __init__(self, user, store):
         super().__init__()
         self.window = None
         self.user = user
+        self._store = store
         self.setup()
 
     def setup(self):
@@ -39,7 +40,7 @@ class MenuWindow(BasicWindow):
 
     def my_party(self):
         # if self.window is None:
-        self.window = Party()
+        self.window = Party(self._store)
         self.window.show()
 
 

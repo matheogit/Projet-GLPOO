@@ -8,8 +8,9 @@ from vue.window import BasicWindow
 
 class Party(BasicWindow):
 
-    def __init__(self):
+    def __init__(self, store):
         super().__init__()
+        self._store = store
 
         self.addPartyWindow = None
         self.editPartyWindow = None
@@ -98,7 +99,7 @@ class Party(BasicWindow):
 
     def add_party(self):
         if self.addPartyWindow is None:
-            self.addPartyWindow = AddUserQt(self)
+            self.addPartyWindow = AddUserQt(self._store)
         self.addPartyWindow.show()
 
     def edit_party(self):

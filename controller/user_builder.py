@@ -24,3 +24,7 @@ class UserBuilder:
         UserValidation(user).validate()
         self._store.user().create(user)
         return user
+
+    def get_user_by_username(self, username: str):
+        user = self._store.user().get_by_username(username)
+        return user

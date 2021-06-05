@@ -16,3 +16,6 @@ class UserValidation(Validate):
         self._validate_name(self._user.firstname)
         self._validate_name(self._user.lastname)
         self._validate_email(self._user.email)
+        self._validate_password(self._user.password)
+        self._validate_gender(self._user.gender)
+        self._validate_age(self._user.age)

@@ -1,5 +1,5 @@
 from model.store import Store
-from controller.customer_builder import CustomerBuilder
+from controller.user_builder import UserBuilder
 from view.common import Common
 from view.view import View
 from exceptions import ResourceNotFound
@@ -28,12 +28,12 @@ class MainView(View):
                 user = self._store.user().get_by_username(username)
                 break
             except ResourceNotFound:
-                print("/!\\ Customer %s not exists" % username)
+                print("/!\\ User %s not exists" % username)
         UserViewFactory(user, self._store).show()
 
     def subscribe(self):
         # Show subscription formular
-        customer_builder = CustomerBuilder(self._store)
+        user_builder = UserBuilder(self._store)
         print("Store user Subscription")
         print()
 
@@ -42,7 +42,7 @@ class MainView(View):
             username = self._common.ask_name(key_name="username")
             try:
                 self._store.user().get_by_username(username)
-                print("/!\\ Customer %s already exists" % username)
+                print("/!\\ User %s already exists" % username)
             except ResourceNotFound:
                 break
         firstname = self._common.ask_name(key_name="firstname")
@@ -51,5 +51,5 @@ class MainView(View):
         password = self._common.ask_password()
         gender = self._common.ask_gender()
         age = self._common.ask_age()
-        user = customer_builder.create_user(username, firstname, lastname, email, password, gender, age)
+        user = user_builder.create_user(username, firstname, lastname, email, password, gender, age)
         UserViewFactory(user, self._store).show()

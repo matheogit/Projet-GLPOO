@@ -37,7 +37,7 @@ class Common:
         return self.ask(key_name="age", regex="^[0-9]{1,3}$", default="0-999")
 
     def ask_type(self, default=None):
-        return self.ask(key_name="type (admin or customer)", regex="^(admin|customer)$", default=default)
+        return self.ask(key_name="type (admin or user)", regex="^(admin|user)$", default=default)
 
     @staticmethod
     def query_yes_no(question, default="no"):

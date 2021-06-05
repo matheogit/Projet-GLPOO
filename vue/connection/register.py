@@ -20,7 +20,7 @@ class Register(BasicWindow):
         self.prenom = QLineEdit()
         self.nom = QLineEdit()
         self.email = QLineEdit()
-        self.gender = QLineEdit()
+        self.gender = QComboBox()
         self.age = QLineEdit()
         self.error = QLabel()
 
@@ -44,6 +44,10 @@ class Register(BasicWindow):
         Layout.addRow("Nom", self.nom)
 
         Layout.addRow("Email", self.email)
+
+        self.gender.addItem("Homme")
+
+        self.gender.addItem("Femme")
 
         Layout.addRow("Genre", self.gender)
 
@@ -82,7 +86,11 @@ class Register(BasicWindow):
         user_builder = UserBuilder(self._store)
         if self.password.text() == self.checkpassword.text():
             try:
-                user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), self.gender.text(), self.age.text())
+                if self.gender.currentText() == "Homme":
+                    gender = "M"
+                else:
+                    gender = "W"
+                user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), gender, self.age.text())
                 self.close()
             except:
                 self.error.setText("Vous avez mal rempli les informations")

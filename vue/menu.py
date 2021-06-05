@@ -13,7 +13,7 @@ class MenuWindow(BasicWindow):
         self.setup()
 
     def setup(self):
-        self.setWindowTitle('Home')
+        self.setWindowTitle('Menu principal')
 
         btn_profil = QPushButton('Profil', self)
         #btn_profil.clicked.connect(self.)

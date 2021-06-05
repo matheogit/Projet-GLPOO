@@ -16,28 +16,28 @@ class Command(Base):
     status = Column(Enum(CommandStatusEnum), nullable=True)  # TODO: update with Enum
     customer_id = Column(String(36), ForeignKey("customer.id"), nullable=True)
 
-    articles = relationship("CommandItem")
+    parties = relationship("CommandItem")
 
     def __repr__(self):
         return "<Command of %s>" % self.customer.username
 
     @dao_error_handler
-    def add_article(self, article, number):
+    def add_party(self, party, number):
         item = CommandItem(number=number)
-        item.article = article
-        self.articles.append(item)
+        item.party = party
+        self.parties.append(item)
 
 
 class CommandItem(Base):
     """
-    Association class between command and articles
+    Association class between command and parties
     help relationship: https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html
     """
     __tablename__ = 'command_item'
-    __table_args__ = (UniqueConstraint('command_id', 'article_id'),)
+    __table_args__ = (UniqueConstraint('command_id', 'party_id'),)
 
     command_id = Column(String(36), ForeignKey(Command.id), primary_key=True)
-    article_id = Column(String(36), ForeignKey('article.id'), primary_key=True)
+    party_id = Column(String(36), ForeignKey('party.id'), primary_key=True)
     number = Column(Integer, nullable=False)
-    command = relationship("Command", back_populates="articles")
-    article = relationship("Article")
+    command = relationship("Command", back_populates="parties")
+    party = relationship("Party")

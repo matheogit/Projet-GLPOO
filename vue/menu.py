@@ -1,7 +1,6 @@
 from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.user.show import ListUserQt
-from controller.member_controller import MemberController
 
 
 class MenuWindow(BasicWindow):

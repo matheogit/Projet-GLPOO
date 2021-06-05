@@ -29,5 +29,6 @@ class PartyDAO(DAO):
     def search(self, string: str):
         return self._database_session.query(Party)\
             .filter(or_(Party.name.ilike("{}%".format(string)),
-                        Party.description.ilike("{}%".format(string))))\
+                        Party.location.ilike("{}%".format(string)),
+                        Party.date.ilike("{}%".format(string))))\
             .order_by(Party.name).all()

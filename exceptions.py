@@ -12,7 +12,7 @@ class InvalidData(Error):
     pass
 
 
-class NotEnoughArticle(Error):
+class NotEnoughParties(Error):
     pass
 
 

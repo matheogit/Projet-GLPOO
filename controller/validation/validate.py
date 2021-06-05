@@ -20,16 +20,16 @@ class Validate:
         self._validate_regex(value, email_pattern)
 
     def _validate_password(self, value):
-        email_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"
-        self._validate_regex(value, email_pattern)
+        password_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"
+        self._validate_regex(value, password_pattern)
 
     def _validate_gender(self, value):
-        email_pattern = "^[M|W]$"
-        self._validate_regex(value, email_pattern)
+        gender_pattern = "^[M|W]$"
+        self._validate_regex(value, gender_pattern)
 
     def _validate_age(self, value):
-        email_pattern = "^[0-9]{1,3}$"
-        self._validate_regex(value, email_pattern)
+        age_pattern = "^[0-9]{1,3}$"
+        self._validate_regex(value, age_pattern)
 
     def _validate_regex(self, value: str, regex: str):
         pattern = re.compile(regex)

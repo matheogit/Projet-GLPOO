@@ -10,17 +10,23 @@ class UserBuilder:
     def __init__(self, store: Store):
         self._store = store
 
-    def create_user(self, username: str, firstname: str, lastname: str, email: str, password: str, gender: str, age: str):
+    def create_user(self, id: str, username: str, firstname: str, lastname: str, email: str, password: str, gender: str, age: str):
         
         # Save user in database
-        user = User(username=username,
-                            firstname=firstname,
-                            lastname=lastname,
-                            email=email,
-                            password=password,
-                            gender=gender,
-                            age=age)
+        user = User(id=id,
+                    username=username,
+                    firstname=firstname,
+                    lastname=lastname,
+                    email=email,
+                    password=password,
+                    gender=gender,
+                    age=age)
         UserValidation(user).validate()
+        if user.id is None:
+            self._store.party().create(user)
+        else:
+            self._store.party().update(user)
+        return user
     
         self._store.user().create(user)
         return user

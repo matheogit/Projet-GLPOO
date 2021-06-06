@@ -35,8 +35,8 @@ class PartyList(BasicWindow):
         index = 0
 
         partycontroller = PartyController(self._store)
-        partylist = partycontroller.get_all_parties()
-        for party in partylist:
+        self.partylist = partycontroller.get_all_parties()
+        for party in self.partylist:
             self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
                 party.name,
                 party.date,
@@ -80,15 +80,16 @@ class PartyList(BasicWindow):
     def clicked(self):
         item = self.listwidget.currentItem()
         self.btn_info_party.setEnabled(True)
-        print(item.text())
 
     def refresh(self):
         self.list()
         self.show()
 
-    def info_party(self, party):
+    def info_party(self):
         if self.infoPartyWindow is None:
-            self.infoPartyWindow = PartyInfoQt(self, party)
+            tmp = self.listwidget.currentRow()
+            party = self.partylist[tmp]
+            self.infoPartyWindow = PartyInfoQt(party, self._store)
         self.infoPartyWindow.show()
 
     def search_party(self):

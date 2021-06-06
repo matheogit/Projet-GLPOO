@@ -7,7 +7,7 @@ class PartyInfoQt(BasicWindow):
     def __init__(self, party, store):
         super().__init__()
 
-        self.setStyleSheet("background-color: #B6CFDF")
+        self.setStyleSheet("background-color: #B08AAD")
 
         self._party = party
         self.window = QWidget()
@@ -21,9 +21,9 @@ class PartyInfoQt(BasicWindow):
         dateText = QLabel('date : ' + self._party.date)
         locationText = QLabel('lieu : ' + self._party.location)
         creator_nameText = QLabel('Nom : ' + self._party.creator_id)
-        total_placeText = QLabel('Places totales : ' + self._party.total_place)
+        total_placeText = QLabel('Places totales : ' + str(self._party.total_place))
         themeText = QLabel('Theme : ' + self._party.theme)
-        priceText = QLabel('Prix : ' + self._party.price) 
+        priceText = QLabel('Prix : ' + str(self._party.price)+'€') 
         gradeText = QLabel('Note : ' + self._party.grade)
         stateText = QLabel('Etat : ' + self._party.state)
 

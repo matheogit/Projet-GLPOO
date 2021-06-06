@@ -85,19 +85,11 @@ class AddUserQt(BasicWindow):
     def addParty(self):
         from vue.user.show import Party
         party_controller = PartyController(self._store)
-        # Show subscription formular
-        self.date = self.jour.currentText() + '-' + self.mois.currentText() + '-' + self.annee.currentText()
-        party_controller.set_creator_id(str(self._user.id))
-        party_controller.set_date(str(self.date))
-        party_controller.set_location(str(self.place.text()))
-        party_controller.set_name(str(self.name.text()))
-        party_controller.set_theme(str(self.theme.currentText()))
-        party_controller.set_total_place(str(self.nbPlace.text()))
-        party_controller.set_price(str(self.cost.text()))
-        party_controller.set_grade("N/A")
-        party_controller.set_state("En cours")
 
-        party_controller.register()
+        self.date = self.jour.currentText() + '-' + self.mois.currentText() + '-' + self.annee.currentText()
+        party_controller.register(None, str(self.name.text()), str(self.place.text()), str(self.date),
+                                  str(self._user.id), str(self.nbPlace.text()), str(self.theme.currentText()),
+                                  str(self.cost.text()), "N/A", "En cours")
 
         if self.party is None:
             self.party = Party(self._user, self._store)

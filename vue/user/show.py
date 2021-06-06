@@ -99,7 +99,6 @@ class Party(BasicWindow):
         item = self.listwidget.currentItem()
         self.btn_edit_party.setEnabled(True)
         self.btn_delete_party.setEnabled(True)
-        print(item.text())
 
 
     def add_party(self):
@@ -109,8 +108,8 @@ class Party(BasicWindow):
 
     def edit_party(self):
         if self.editPartyWindow is None:
-            user = self.member_mapping[self.listwidget.currentRow()]
-            self.editPartyWindow = EditUserQt(self._member_controller, user['id'], self)
+            party = self.party_mapping[self.listwidget.currentRow()]
+            self.editPartyWindow = EditUserQt(self._user, party, self._store, self)
         self.editPartyWindow.show()
 
     def delete_party(self):

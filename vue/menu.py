@@ -3,14 +3,17 @@ from PySide6.QtWidgets import QLabel, QPushButton, QGridLayout, QWidget
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
+from model.store import Store
+
 
 class MenuWindow(BasicWindow):
 
-    def __init__(self, user, store):
+    def __init__(self, user, store: Store):
         super().__init__()
         self.window = QWidget()
-        self.user = user
         self._store = store
+        self._user = user
+
         self.setup()
 
         self.setStyleSheet("background-color: #B08AAD;")
@@ -22,7 +25,7 @@ class MenuWindow(BasicWindow):
         #btn_profil.clicked.connect(self.)
         btn_profil.setStyleSheet("background-color: #B6CFDF;")
         
-        textProfil = QLabel('Bonjour, ' + self.user.username)
+        textProfil = QLabel('Bonjour, ' + self._user.username)
 
         btn_my = QPushButton('Mes soirées', self)
         btn_my.clicked.connect(self.my_party)
@@ -62,7 +65,7 @@ class MenuWindow(BasicWindow):
 
     def list_party(self):
         # if self.window is None:
-        self.window = PartyList()
+        self.window = PartyList(self._user, self._store)
         self.window.show()
 
 

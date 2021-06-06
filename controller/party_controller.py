@@ -134,8 +134,8 @@ class PartyController:
         parties = self._store.party().get_all()
         return parties
 
-    def participate_to_party(self, user):
+    def participate_to_party(self, user, party):
         participation = UserParticipation(user_id=user.id,
-                                  party_id=self._id)
+                                  party_id=party.id)
         self._store.userParticipation().create(participation)
-        return participation
+

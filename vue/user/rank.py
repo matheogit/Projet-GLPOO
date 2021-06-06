@@ -1,15 +1,16 @@
 from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout
 from vue.window import BasicWindow
-from vue.user.info import InfoUserQt
+from vue.user.party_info import PartyInfoQt
 
 
 class PartyRank(BasicWindow):
 
-    def __init__(self):
+    def __init__(self, party, store):
         super().__init__()
 
         self.setStyleSheet("background-color: #B6CFDF")
-
+        self._store = store
+        self._party = party
         self.infoPartyWindow = None
         self.layout = QHBoxLayout()
 
@@ -74,5 +75,5 @@ class PartyRank(BasicWindow):
 
     def info_party(self):
         if self.infoPartyWindow is None:
-            self.infoPartyWindow = InfoUserQt(self)
+            self.infoPartyWindow = PartyInfoQt(self, self._party, self._store)
         self.infoPartyWindow.show()

@@ -2,7 +2,7 @@ from model.mapping import Base
 import uuid
 
 
-from sqlalchemy import Column, String, Integer, UniqueConstraint
+from sqlalchemy import Column, String, Integer,  UniqueConstraint
 
 class Party(Base):
     __tablename__ = 'party'

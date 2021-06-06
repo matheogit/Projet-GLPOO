@@ -20,7 +20,8 @@ class PartyInfoQt(BasicWindow):
         self.setWindowTitle('Info de la soirée')
 
         user_builder = UserBuilder(self._store)
-        user  = user_builder.get_user(self._party.creator_id)
+        user = user_builder.get_user(self._party.creator_id)
+
         username = user.username
         nameText = QLabel('nom : ' + self._party.name)
         dateText = QLabel('date : ' + self._party.date)

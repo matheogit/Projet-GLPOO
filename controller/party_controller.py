@@ -148,5 +148,5 @@ class PartyController:
                                           note=note)
         self._store.userParticipation().update(participation)
 
-    def set_note_participation(self, user, party, note):
-        self._store.userParticipation().update(participation)
+    def get_note_participation(self, user, party):
+        return self._store.userParticipation().get_note_user_id_party_id(user.id, party.id)

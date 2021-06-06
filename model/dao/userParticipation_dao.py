@@ -33,3 +33,10 @@ class UserParticipationDAO(DAO):
         if parties is None:
             raise ResourceNotFound()
         return parties
+
+    @dao_error_handler
+    def get_note_user_id_party_id(self, user_id: str, party_id:str):
+        note = self._database_session.query(UserParticipation).filter(UserParticipation.user_id == user_id & UserParticipation.party_id == party_id).one()
+        if note is None:
+            raise ResourceNotFound()
+        return note

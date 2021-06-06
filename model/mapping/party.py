@@ -19,6 +19,7 @@ class Party(Base):
     price = Column(Integer, nullable=True)    
     grade = Column(String(256), nullable=True)
     state = Column(String(10), nullable=False)
+    note = Column(Integer, nullable=True)
 
     def __repr__(self):
         return "<Party(%s at %s the %s)>" % (self.name, self.location, self.date)

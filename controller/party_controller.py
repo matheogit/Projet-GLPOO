@@ -22,6 +22,7 @@ class PartyController:
         self._state = None
         self._total_place = None
         self._creator_id = None
+        self._note = []
 
     def from_party(self, party: Party, user: User):
         self._id = party.id
@@ -34,6 +35,7 @@ class PartyController:
         self._creator_id = user.id
         self._date = party.date
         self._total_place = party.total_place
+        self._note = party.note
 
     def set_name(self, name):
         # check name not exists
@@ -95,6 +97,20 @@ class PartyController:
     def get_state(self):
         return self._state
 
+    def add_note(self, note):
+        not self._note.append(note)
+
+    def get_note(self):
+        totale = 0
+        notes = 0
+        for note in self._note:
+            notes += note
+            totale += 1
+        if totale == 0:
+            return -1
+        else:
+            return notes / totale
+
     def register(self):
         party = Party(id=self._id,
                           name=self._name,
@@ -105,7 +121,8 @@ class PartyController:
                           theme=self._theme,
                           price=self._price,
                           grade=self._grade,
-                          state=self._state)
+                          state=self._state,
+                          note=self._note)
         if self._id is None:
             self._store.party().create(party)
             self._id = party.id

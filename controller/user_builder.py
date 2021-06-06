@@ -34,3 +34,18 @@ class UserBuilder:
     def get_all_user(self):
         users = self._store.user().get_all()
         return users
+
+    def update_user(self, username: str, firstname: str, lastname: str, email: str, password: str, gender: str,
+                    age: str):
+        # Save user in database
+        user = User(username=username,
+                    firstname=firstname,
+                    lastname=lastname,
+                    email=email,
+                    password=password,
+                    gender=gender,
+                    age=age)
+
+        UserValidation(user).validate()
+        self._store.user().update(user)
+

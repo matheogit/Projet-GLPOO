@@ -53,7 +53,7 @@ class Party(BasicWindow):
         partycontroller = PartyController(self._store)
         partylist = partycontroller.get_parties_from_user(self._user)
         for party in partylist:
-            self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
+            self.listwidget.insertItem(index, "%s le %s Lieu : %s Thème : %s Coût : %s€" % (
                 party.name,
                 party.date,
                 party.location,
@@ -67,6 +67,7 @@ class Party(BasicWindow):
         self.listwidget.move(0, 60)
         self.listlayout.addWidget(self.listwidget)
         self.layout.addLayout(self.listlayout)
+
 
     def side_menu(self):
 
@@ -111,13 +112,10 @@ class Party(BasicWindow):
         self.btn_delete_party.setEnabled(True)
         print(item.text())
 
-    def refresh(self):
-        self.list()
-        self.show()
 
     def add_party(self):
         if self.addPartyWindow is None:
-            self.addPartyWindow = AddUserQt(self._user, self._store)
+            self.addPartyWindow = AddUserQt(self, self._user, self._store)
         self.addPartyWindow.show()
 
     def edit_party(self):
@@ -136,3 +134,4 @@ class Party(BasicWindow):
         if self.searchPartyWindow is None:
             self.searchPartyWindow = SearchUserQt(self._member_controller, self)
         self.searchPartyWindow.show()
+

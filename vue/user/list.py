@@ -15,6 +15,7 @@ class PartyList(BasicWindow):
         self._store = store
         self.infoPartyWindow = None
         self.searchPartyWindow = None
+        self.partycontroller = PartyController(self._store)
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
@@ -22,6 +23,7 @@ class PartyList(BasicWindow):
         self.setStyleSheet("background-color: #B6CFDF")
 
         self.btn_info_party = QPushButton('Party info', self)
+        self.btn_participate_party = QPushButton('Participer à la soirée', self)
         self.btn_search_party = QPushButton('Search party', self)
 
         self.party_mapping = {}
@@ -34,8 +36,7 @@ class PartyList(BasicWindow):
         self.listwidget.clear()
         index = 0
 
-        partycontroller = PartyController(self._store)
-        self.partylist = partycontroller.get_all_parties()
+        self.partylist = self.partycontroller.get_all_parties()
         for party in self.partylist:
             self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
                 party.name,
@@ -58,18 +59,28 @@ class PartyList(BasicWindow):
         self.btn_info_party.move(60, 20)
         self.btn_info_party.setEnabled(False)
         self.btn_info_party.clicked.connect(self.info_party)
+        self.btn_info_party.setStyleSheet("background-color: #B08AAD")
+
+        self.btn_participate_party.resize(self.btn_participate_party.sizeHint())
+        self.btn_participate_party.move(60, 40)
+        self.btn_participate_party.setEnabled(False)
+        self.btn_participate_party.clicked.connect(self.participate_party)
+        self.btn_participate_party.setStyleSheet("background-color: #B08AAD")
 
         self.btn_search_party.resize(self.btn_search_party.sizeHint())
         self.btn_search_party.move(60, 80)
         self.btn_search_party.clicked.connect(self.search_party)
+        self.btn_search_party.setStyleSheet("background-color: #B08AAD")
 
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
+        btn_quit.setStyleSheet("background-color: #B08AAD")
         btn_quit.resize(btn_quit.sizeHint())
         btn_quit.move(90, 100)
 
         buttonlayout = QVBoxLayout()
         buttonlayout.addWidget(self.btn_info_party)
+        buttonlayout.addWidget(self.btn_participate_party)
         buttonlayout.addWidget(self.btn_search_party)
         buttonlayout.addWidget(btn_quit)
 
@@ -78,8 +89,16 @@ class PartyList(BasicWindow):
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
-        item = self.listwidget.currentItem()
         self.btn_info_party.setEnabled(True)
+        #Test si la personne peut participer ou participe déjà
+        rowParty = self.listwidget.currentRow()
+        test = self.partycontroller.is_user_participate(self._user, self.partylist[rowParty])
+        if test:
+            self.btn_participate_party.setText('Vous participez déjà')
+            self.btn_participate_party.setEnabled(False)
+        else:
+            self.btn_participate_party.setEnabled(True)
+            self.btn_participate_party.setText('Participer')
 
     def refresh(self):
         self.list()
@@ -91,6 +110,12 @@ class PartyList(BasicWindow):
             party = self.partylist[tmp]
             self.infoPartyWindow = PartyInfoQt(party, self._store)
         self.infoPartyWindow.show()
+
+    def participate_party(self):
+        rowParty = self.listwidget.currentRow()
+        self.partycontroller.participate_to_party(self._user, self.partylist[rowParty])
+        self.btn_participate_party.setText('Vous participez déjà')
+        self.btn_participate_party.setEnabled(False)
 
     def search_party(self):
         if self.searchPartyWindow is None:

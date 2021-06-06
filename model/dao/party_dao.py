@@ -23,7 +23,7 @@ class PartyDAO(DAO):
 
     @dao_error_handler
     def get_all(self):
-        return self._database_session.query(Party).order_by(Party.name).all()
+        return self._database_session.query(Party).order_by(Party.date).all()
 
     @dao_error_handler
     def search(self, string: str):

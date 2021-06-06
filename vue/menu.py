@@ -1,10 +1,10 @@
 from vue.window import BasicWindow
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton, QLabel
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
 from model.store import Store
-
+from vue.user.userInfo import UserInfo
 
 class MenuWindow(BasicWindow):
 
@@ -19,6 +19,15 @@ class MenuWindow(BasicWindow):
         self.setStyleSheet("background-color: #B08AAD;")
 
     def setup(self):
+
+        self.setWindowTitle('Menu principal')
+
+        btn_profil = QPushButton('Profil', self)
+        btn_profil.clicked.connect(self.my_info)
+        btn_profil.setStyleSheet("background-color: #B6CFDF;")
+        
+        textProfil = QLabel('Bonjour, ' + self._user.username)
+
         btn_my = QPushButton('Mes soirées', self)
         btn_my.clicked.connect(self.my_party)
         btn_my.setStyleSheet("background-color: #B6CFDF;")
@@ -46,6 +55,10 @@ class MenuWindow(BasicWindow):
         self.setLayout(layout)
         self.show()
 
+
+    def my_info(self):
+        self.window = UserInfo(self._user, self._store)
+        self.window.show()
 
     def my_party(self):
         # if self.window is None:

@@ -3,8 +3,10 @@ from PySide6.QtWidgets import QPushButton, QLabel, QGridLayout, QWidget
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
+from vue.user.participation import Participation
 from model.store import Store
 from vue.user.userInfo import UserInfo
+
 
 class MenuWindow(BasicWindow):
 
@@ -36,6 +38,10 @@ class MenuWindow(BasicWindow):
         btn_list.clicked.connect(self.list_party)
         btn_list.setStyleSheet("background-color: #B6CFDF;")
 
+        btn_participation = QPushButton('Mes Participations', self)
+        btn_participation.clicked.connect(self.participation)
+        btn_participation.setStyleSheet("background-color: #B6CFDF;")
+
         btn_rank = QPushButton('Classement des soirées', self)
         btn_rank.clicked.connect(self.rank_party)
         btn_rank.setStyleSheet("background-color: #B6CFDF;")
@@ -49,9 +55,10 @@ class MenuWindow(BasicWindow):
         layout.addWidget(textProfil, 0, 3, 1, 1)
         layout.addWidget(btn_my, 1, 1, 1, 1)
         layout.addWidget(btn_list, 2, 1, 1, 1)
-        layout.addWidget(btn_rank, 3, 1, 1, 1)
-        layout.addWidget(btn_quit, 4, 1, 1, 1)
-        layout.setRowStretch(4, 1)
+        layout.addWidget(btn_participation, 3, 1, 1, 1)
+        layout.addWidget(btn_rank, 4, 1, 1, 1)
+        layout.addWidget(btn_quit, 5, 1, 1, 1)
+        layout.setRowStretch(5, 1)
 
         self.setGeometry(100, 100, 600, 600)
         self.setLayout(layout)
@@ -67,6 +74,11 @@ class MenuWindow(BasicWindow):
         self.window = Party(self._user, self._store)
         self.window.show()
 
+
+    def participation(self):
+        # if self.window is None:
+        self.window = Participation(self._user, self._store)
+        self.window.show()
 
     def list_party(self):
         # if self.window is None:

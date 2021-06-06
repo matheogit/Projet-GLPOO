@@ -1,3 +1,4 @@
+from sqlalchemy.sql.elements import Null
 from model.mapping.party import Party
 from model.mapping.user import User
 from model.mapping.userParticipation import UserParticipation
@@ -95,6 +96,7 @@ class PartyController:
     def get_state(self):
         return self._state
 
+
     def register(self):
         party = Party(id=self._id,
                           name=self._name,
@@ -125,9 +127,10 @@ class PartyController:
         parties = self._store.party().get_all()
         return parties
 
-    def participate_to_party(self, user, party):
+    def participate_to_party(self, user, party, note):
         participation = UserParticipation(user_id=user.id,
-                                  party_id=party.id)
+                                          party_id=party.id,
+                                          note=note)
         self._store.userParticipation().create(participation)
         return participation
 
@@ -138,3 +141,12 @@ class PartyController:
                 return True
             else:
                 return False
+
+    def set_note_participation(self, user, party, note):
+        participation = UserParticipation(user_id=user.id,
+                                          party_id=party.id,
+                                          note=note)
+        self._store.userParticipation().update(participation)
+
+    def get_note_participation(self, user, party):
+        return self._store.userParticipation().get_note_user_id_party_id(user.id, party.id)

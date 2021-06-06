@@ -15,6 +15,7 @@ class PartyList(BasicWindow):
         self._store = store
         self.infoPartyWindow = None
         self.searchPartyWindow = None
+        self.partycontroller = PartyController(self._store)
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
@@ -35,9 +36,8 @@ class PartyList(BasicWindow):
         self.listwidget.clear()
         index = 0
 
-        partycontroller = PartyController(self._store)
-        partylist = partycontroller.get_all_parties()
-        for party in partylist:
+        self.partylist = self.partycontroller.get_all_parties()
+        for party in self.partylist:
             self.listwidget.insertItem(index, "Soirée: %s date: %s lieu: %s thème: %s prix: %s euros" % (
                 party.name,
                 party.date,
@@ -85,9 +85,16 @@ class PartyList(BasicWindow):
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
-        item = self.listwidget.currentItem()
         self.btn_info_party.setEnabled(True)
-        print(item.text())
+        #Test si la personne peut participer ou participe déjà
+        rowParty = self.listwidget.currentRow()
+        test = self.partycontroller.is_user_participate(self._user, self.partylist[rowParty])
+        if test:
+            self.btn_participate_party.setText('Vous participez déjà')
+            self.btn_participate_party.setEnabled(False)
+        else:
+            self.btn_participate_party.setEnabled(True)
+            self.btn_participate_party.setText('Participez')
 
     def refresh(self):
         self.list()
@@ -99,10 +106,10 @@ class PartyList(BasicWindow):
         self.infoPartyWindow.show()
 
     def participate_party(self):
-        partycontroller = PartyController(self._store)
-        participation = partycontroller.participate_to_party(self._user)
-        if participation:
-            print("VOUS PARTICIPEZ DEJA")
+        rowParty = self.listwidget.currentRow()
+        self.partycontroller.participate_to_party(self._user, self.partylist[rowParty])
+        self.btn_participate_party.setText('Vous participez déjà')
+        self.btn_participate_party.setEnabled(False)
 
     def search_party(self):
         if self.searchPartyWindow is None:

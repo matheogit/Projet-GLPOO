@@ -1,7 +1,5 @@
-
 from model.mapping.user import User
 from controller.validation.validate import Validate
-
 
 class UserValidation(Validate):
     """

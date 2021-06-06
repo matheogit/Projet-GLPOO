@@ -1,17 +1,14 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QComboBox, QLabel
 from vue.window import BasicWindow
-from vue.menu import MenuWindow
 from controller.user_builder import UserBuilder
 from model.store import Store
 
 
 class Register(BasicWindow):
 
-    def __init__(self, store: Store, show_vue: BasicWindow = None):
-        #self._member_controller = member_controller
+    def __init__(self, store: Store):
         super().__init__()
         self._store = store
-        ##
 
         self.setStyleSheet("background-color: #B08AAD;")
 
@@ -80,6 +77,7 @@ class Register(BasicWindow):
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
         # Set the window's main layout
+        self.setWindowTitle('Inscription')
         self.setLayout(outerLayout)
 
     def registerpage(self):

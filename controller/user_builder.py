@@ -1,8 +1,6 @@
 from model.mapping.user import User
-from model.mapping.party import Party
 from model.store import Store
 from controller.validation.user_validation import UserValidation
-
 
 class UserBuilder:
     """

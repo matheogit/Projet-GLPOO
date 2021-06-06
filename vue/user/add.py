@@ -4,13 +4,17 @@ from controller.party_controller import PartyController
 
 class AddUserQt(BasicWindow):
 
-    def __init__(self, user, store, show_vue: BasicWindow = None):
+    def __init__(self, ancien, user, store, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
+        self._ancien = ancien
         self._user = user
         self._store = store
         ##
+
         self.setStyleSheet("background-color: #B08AAD")
+
+        self.party = None
 
         self.name = QLineEdit()
         self.place = QLineEdit()
@@ -67,6 +71,7 @@ class AddUserQt(BasicWindow):
         self.setLayout(outerLayout)
 
     def addParty(self):
+        from vue.user.show import Party
         party_controller = PartyController(self._store)
         # Show subscription formular
         #print(user)
@@ -82,5 +87,10 @@ class AddUserQt(BasicWindow):
 
         party_controller.register()
 
+        if self.party is None:
+            self.party = Party(self._user, self._store)
+        self.party.show()
+        self._ancien.close()
         self.close()
+
 

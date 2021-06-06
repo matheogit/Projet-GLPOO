@@ -5,7 +5,7 @@ from sqlalchemy import Column, String, Integer,  UniqueConstraint
 
 class Party(Base):
     __tablename__ = 'party'
-    __table_args__ = (UniqueConstraint('name', 'location','date'),)
+    __table_args__ = (UniqueConstraint('name', 'location', 'date'),)
 
     id = Column(String(36), default=str(uuid.uuid4()), primary_key=True)
 

@@ -36,8 +36,8 @@ class MenuWindow(BasicWindow):
         btn_rank.clicked.connect(self.rank_party)
         btn_rank.setStyleSheet("background-color: #B6CFDF;")
 
-        btn_quit = QPushButton('Quitter', self)
-        btn_quit.clicked.connect(QApplication.instance().quit)
+        btn_quit = QPushButton('Déconnection', self)
+        btn_quit.clicked.connect(self.disconnect)
         btn_quit.setStyleSheet("background-color: #B6CFDF;")
 
         layout = QGridLayout()
@@ -70,3 +70,9 @@ class MenuWindow(BasicWindow):
         # if self.window is None:
         self.window = PartyRank()
         self.window.show()
+
+    def disconnect(self):
+        from vue.home import LoginWindow
+        self.window = LoginWindow(self._store)
+        self.window.show()
+        self.close()

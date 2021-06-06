@@ -4,8 +4,6 @@ from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.connection.login import Login
 from vue.connection.register import Register
 
-
-
 class LoginWindow(BasicWindow):
 
     def __init__(self, store: Store):
@@ -43,7 +41,7 @@ class LoginWindow(BasicWindow):
 
     def login(self):
         #if self.window is None:
-        self.window = Login(self._store)
+        self.window = Login(self)
         self.window.show()
 
     def register(self):

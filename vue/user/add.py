@@ -5,12 +5,10 @@ from controller.party_controller import PartyController
 class AddUserQt(BasicWindow):
 
     def __init__(self, ancien, user, store, show_vue: BasicWindow = None):
-        #self._member_controller = member_controller
         super().__init__()
         self._ancien = ancien
         self._user = user
         self._store = store
-        ##
 
         self.setStyleSheet("background-color: #B08AAD")
 
@@ -88,7 +86,6 @@ class AddUserQt(BasicWindow):
         from vue.user.show import Party
         party_controller = PartyController(self._store)
         # Show subscription formular
-        #print(user)
         self.date = self.jour.currentText() + '-' + self.mois.currentText() + '-' + self.annee.currentText()
         party_controller.set_creator_id(str(self._user.id))
         party_controller.set_date(str(self.date))

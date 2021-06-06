@@ -4,10 +4,9 @@ from sqlalchemy import or_
 from model.mapping.party import Party
 from model.dao.dao import DAO
 
-
 class PartyDAO(DAO):
     """
-    User Mapping DAO
+    Party Mapping DAO
     """
 
     def __init__(self, database_session):

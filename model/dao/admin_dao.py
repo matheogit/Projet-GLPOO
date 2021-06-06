@@ -1,8 +1,6 @@
 from model.dao.dao_error_handler import dao_error_handler
-
 from model.mapping.admin import Admin
 from model.dao.user_dao import UserDAO
-
 
 class AdminDAO(UserDAO):
     """

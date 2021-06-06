@@ -7,8 +7,6 @@ from vue.window import BasicWindow
 from model.store import Store
 from controller.party_controller import PartyController
 
-
-
 class Party(BasicWindow):
 
     def __init__(self, user, store: Store):

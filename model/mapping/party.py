@@ -1,8 +1,7 @@
-from model.mapping import Base
 import uuid
 
-
-from sqlalchemy import Column, String, Integer, UniqueConstraint
+from model.mapping import Base
+from sqlalchemy import Column, String, Integer,  UniqueConstraint
 
 class Party(Base):
     __tablename__ = 'party'
@@ -23,17 +22,3 @@ class Party(Base):
 
     def __repr__(self):
         return "<Party(%s at %s the %s)>" % (self.name, self.location, self.date)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "location": self.location,
-            "date": self.date,
-            "creator_id": self.creator_id,
-            "total_place": self.total_place,
-            "theme": self.theme,
-            "price": self.price,
-            "grade": self.grade,
-            "state": self.state
-        }

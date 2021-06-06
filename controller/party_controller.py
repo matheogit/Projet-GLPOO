@@ -8,13 +8,6 @@ from exceptions import ResourceNotFound, Conflict
 class PartyController:
     """
     party create / update.
-    For update, create PartyController and feed the controller with fom_party function
-    example:
-        party = store.party().get(...)
-        controller = PartyController(store)
-        controller.from_party(party)
-        controller.set_name("updated_name")
-        controller.register()
     """
 
     def __init__(self, store: Store):
@@ -83,8 +76,6 @@ class PartyController:
 
     def get_theme(self):
         return self._theme
-
-    
 
     def set_price(self, price):
         self._price = price

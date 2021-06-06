@@ -4,7 +4,6 @@ from model.mapping.user import User
 from model.dao.dao import DAO
 from exceptions import ResourceNotFound
 
-
 class UserDAO(DAO):
     """
     User Mapping DAO

@@ -1,7 +1,6 @@
-from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QMessageBox, QLabel
+from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QLabel
 from vue.window import BasicWindow
 from controller.user_builder import UserBuilder
-from model.store import Store
 from vue.menu import MenuWindow
 
 class Login(BasicWindow):
@@ -54,6 +53,7 @@ class Login(BasicWindow):
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
         # Set the window's main layout
+        self.setWindowTitle('Connexion')
         self.setLayout(outerLayout)
 
     def loginpage(self):

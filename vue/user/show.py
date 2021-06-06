@@ -118,8 +118,8 @@ class Party(BasicWindow):
 
     def edit_party(self):
         if self.editPartyWindow is None:
-            user = self.member_mapping[self.listwidget.currentRow()]
-            self.editPartyWindow = EditUserQt(self._member_controller, user['id'], self)
+            party = self.party_mapping[self.listwidget.currentRow()]
+            self.editPartyWindow = EditUserQt(party, self._store)
         self.editPartyWindow.show()
 
     def delete_party(self):

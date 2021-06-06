@@ -1,7 +1,8 @@
+from model.mapping.user import User
 from model.store import Store
 from PySide6.QtWidgets import QLineEdit, QWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout, QLabel
 from vue.window import BasicWindow
-
+from controller.user_builder import UserBuilder
 
 class PartyInfoQt(BasicWindow):
     def __init__(self, party, store):
@@ -17,10 +18,14 @@ class PartyInfoQt(BasicWindow):
 
     def setup(self):
         self.setWindowTitle('Info de la soirée')
+
+        user_builder = UserBuilder(self._store)
+        user  = user_builder.get_user(self._party.creator_id)
+        username = user.username
         nameText = QLabel('nom : ' + self._party.name)
         dateText = QLabel('date : ' + self._party.date)
         locationText = QLabel('lieu : ' + self._party.location)
-        creator_nameText = QLabel('Nom : ' + self._party.creator_id)
+        creator_nameText = QLabel('créateur : ' + username)
         total_placeText = QLabel('Places totales : ' + str(self._party.total_place))
         themeText = QLabel('Theme : ' + self._party.theme)
         priceText = QLabel('Prix : ' + str(self._party.price)+'€') 

@@ -34,3 +34,7 @@ class UserBuilder:
     def get_all_user(self):
         users = self._store.user().get_all()
         return users
+
+    def get_user(self, id):
+        user = self._store.user().get(id)
+        return user

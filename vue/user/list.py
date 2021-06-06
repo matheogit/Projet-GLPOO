@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout
 from vue.user.party_info import PartyInfoQt
-from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
 from model.store import Store
 from controller.party_controller import PartyController
@@ -14,7 +13,6 @@ class PartyList(BasicWindow):
         self._user = user
         self._store = store
         self.infoPartyWindow = None
-        self.searchPartyWindow = None
         self.partycontroller = PartyController(self._store)
         self.layout = QHBoxLayout()
 
@@ -24,7 +22,6 @@ class PartyList(BasicWindow):
 
         self.btn_info_party = QPushButton('Party info', self)
         self.btn_participate_party = QPushButton('Participer à la soirée', self)
-        self.btn_search_party = QPushButton('Search party', self)
 
         self.party_mapping = {}
 
@@ -67,11 +64,6 @@ class PartyList(BasicWindow):
         self.btn_participate_party.clicked.connect(self.participate_party)
         self.btn_participate_party.setStyleSheet("background-color: #B08AAD")
 
-        self.btn_search_party.resize(self.btn_search_party.sizeHint())
-        self.btn_search_party.move(60, 80)
-        self.btn_search_party.clicked.connect(self.search_party)
-        self.btn_search_party.setStyleSheet("background-color: #B08AAD")
-
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
         btn_quit.setStyleSheet("background-color: #B08AAD")
@@ -81,7 +73,6 @@ class PartyList(BasicWindow):
         buttonlayout = QVBoxLayout()
         buttonlayout.addWidget(self.btn_info_party)
         buttonlayout.addWidget(self.btn_participate_party)
-        buttonlayout.addWidget(self.btn_search_party)
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 600, 600)
@@ -115,8 +106,3 @@ class PartyList(BasicWindow):
         self.partycontroller.participate_to_party(self._user, self.partylist[rowParty])
         self.btn_participate_party.setText('Vous participez déjà')
         self.btn_participate_party.setEnabled(False)
-
-    def search_party(self):
-        if self.searchPartyWindow is None:
-            self.searchPartyWindow = SearchUserQt(self._member_controller, self)
-        self.searchPartyWindow.show()

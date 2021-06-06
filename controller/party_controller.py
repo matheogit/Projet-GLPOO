@@ -1,5 +1,6 @@
 from model.mapping.party import Party
 from model.mapping.user import User
+from model.mapping.userParticipation import UserParticipation
 from model.store import Store
 from exceptions import ResourceNotFound, Conflict
 
@@ -132,3 +133,10 @@ class PartyController:
     def get_all_parties(self):
         parties = self._store.party().get_all()
         return parties
+
+    def participate_to_party(self, user):
+        participation = UserParticipation(user_id=user.id,
+                                  party_id=self._id)
+        self._store.userParticipation().create(participation)
+
+        return participation

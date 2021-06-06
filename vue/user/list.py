@@ -61,7 +61,7 @@ class PartyList(BasicWindow):
         self.btn_info_party.clicked.connect(self.info_party)
 
         self.btn_participate_party.resize(self.btn_participate_party.sizeHint())
-        self.btn_participate_party.move(60, 20)
+        self.btn_participate_party.move(60, 40)
         self.btn_participate_party.setEnabled(False)
         self.btn_participate_party.clicked.connect(self.participate_party)
 
@@ -76,6 +76,7 @@ class PartyList(BasicWindow):
 
         buttonlayout = QVBoxLayout()
         buttonlayout.addWidget(self.btn_info_party)
+        buttonlayout.addWidget(self.btn_participate_party)
         buttonlayout.addWidget(self.btn_search_party)
         buttonlayout.addWidget(btn_quit)
 

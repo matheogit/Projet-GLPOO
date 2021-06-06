@@ -65,6 +65,7 @@ class PartyList(BasicWindow):
         self.btn_participate_party.move(60, 40)
         self.btn_participate_party.setEnabled(False)
         self.btn_participate_party.clicked.connect(self.participate_party)
+        self.btn_participate_party.setStyleSheet("background-color: #B08AAD")
 
         self.btn_search_party.resize(self.btn_search_party.sizeHint())
         self.btn_search_party.move(60, 80)
@@ -97,7 +98,7 @@ class PartyList(BasicWindow):
             self.btn_participate_party.setEnabled(False)
         else:
             self.btn_participate_party.setEnabled(True)
-            self.btn_participate_party.setText('Participez')
+            self.btn_participate_party.setText('Participer')
 
     def refresh(self):
         self.list()

@@ -87,10 +87,3 @@ class EditUserQt(BasicWindow):
         self.party.show()
         self._ancienMenu.close()
         self.close()
-
-    def update_menu(self):
-        from vue.menu import MenuWindow
-        self._ancienMenu.close()
-        self.party = MenuWindow(self._user, self._store)
-        self.party.show()
-        self.close()

@@ -21,14 +21,14 @@ class UserParticipationDAO(DAO):
         return self._database_session.query(UserParticipation).order_by(UserParticipation.party_id).all()
 
     @dao_error_handler
-    def get_users_by_party_id(self, party_id: str):
+    def get_users_participation_by_party_id(self, party_id: str):
         users = self._database_session.query(UserParticipation).filter(UserParticipation.party_id == party_id).order_by(UserParticipation.user_id).all()
         if users is None:
             raise ResourceNotFound()
         return users
 
     @dao_error_handler
-    def get_parties_by_user_id(self, user_id: str):
+    def get_participations_by_user_id(self, user_id: str):
         parties = self._database_session.query(UserParticipation).filter(UserParticipation.user_id == user_id).order_by(UserParticipation.party_id).all()
         if parties is None:
             raise ResourceNotFound()

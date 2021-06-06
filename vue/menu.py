@@ -4,7 +4,7 @@ from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
 from model.store import Store
-
+from vue.user.userInfo import UserInfo
 
 class MenuWindow(BasicWindow):
 
@@ -22,7 +22,7 @@ class MenuWindow(BasicWindow):
         self.setWindowTitle('Menu principal')
 
         btn_profil = QPushButton('Profil', self)
-        #btn_profil.clicked.connect(self.)
+        btn_profil.clicked.connect(self.my_info)
         btn_profil.setStyleSheet("background-color: #B6CFDF;")
         
         textProfil = QLabel('Bonjour, ' + self._user.username)
@@ -56,6 +56,10 @@ class MenuWindow(BasicWindow):
         self.setLayout(layout)
         self.show()
 
+
+    def my_info(self):
+        self.window = UserInfo(self._user, self._store)
+        self.window.show()
 
     def my_party(self):
         # if self.window is None:

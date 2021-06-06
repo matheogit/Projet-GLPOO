@@ -22,6 +22,7 @@ class PartyList(BasicWindow):
         self.setStyleSheet("background-color: #B6CFDF")
 
         self.btn_info_party = QPushButton('Party info', self)
+        self.btn_participate_party = QPushButton('Participer à la soirée', self)
         self.btn_search_party = QPushButton('Search party', self)
 
         self.party_mapping = {}
@@ -59,6 +60,11 @@ class PartyList(BasicWindow):
         self.btn_info_party.setEnabled(False)
         self.btn_info_party.clicked.connect(self.info_party)
 
+        self.btn_participate_party.resize(self.btn_participate_party.sizeHint())
+        self.btn_participate_party.move(60, 20)
+        self.btn_participate_party.setEnabled(False)
+        self.btn_participate_party.clicked.connect(self.participate_party)
+
         self.btn_search_party.resize(self.btn_search_party.sizeHint())
         self.btn_search_party.move(60, 80)
         self.btn_search_party.clicked.connect(self.search_party)
@@ -90,6 +96,12 @@ class PartyList(BasicWindow):
         if self.infoPartyWindow is None:
             self.infoPartyWindow = InfoUserQt(self)
         self.infoPartyWindow.show()
+
+    def participate_party(self):
+        partycontroller = PartyController(self._store)
+        participation = partycontroller.participate_to_party(self._user)
+        if participation:
+            print("VOUS PARTICIPEZ DEJA")
 
     def search_party(self):
         if self.searchPartyWindow is None:

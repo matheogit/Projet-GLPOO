@@ -99,7 +99,6 @@ class Party(BasicWindow):
         item = self.listwidget.currentItem()
         self.btn_edit_party.setEnabled(True)
         self.btn_delete_party.setEnabled(True)
-        print(item.text())
 
 
     def add_party(self):

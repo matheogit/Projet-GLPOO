@@ -31,7 +31,6 @@ def main():
             app.exec_()
         except KeyboardInterrupt:
             pass
-        print("See you soon ! Bye !")
 
 if __name__ == "__main__":
     main()

@@ -67,7 +67,6 @@ class PartyRank(BasicWindow):
     def clicked(self):
         item = self.listwidget.currentItem()
         self.btn_info_party.setEnabled(True)
-        print(item.text())
 
     def refresh(self):
         self.list()

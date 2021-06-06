@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout
-from vue.user.info import InfoUserQt
+from vue.user.party_info import PartyInfoQt
 from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
 from model.store import Store
@@ -86,9 +86,9 @@ class PartyList(BasicWindow):
         self.list()
         self.show()
 
-    def info_party(self):
+    def info_party(self, party):
         if self.infoPartyWindow is None:
-            self.infoPartyWindow = InfoUserQt(self)
+            self.infoPartyWindow = PartyInfoQt(self, party)
         self.infoPartyWindow.show()
 
     def search_party(self):

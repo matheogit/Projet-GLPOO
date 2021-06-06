@@ -34,7 +34,7 @@ class LoginWindow(BasicWindow):
         layout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 600, 600)
-        self.setWindowTitle('Page de connection')
+        self.setWindowTitle('Page de connexion')
         self.setLayout(layout)
         self.show()
 

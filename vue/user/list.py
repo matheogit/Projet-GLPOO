@@ -59,6 +59,7 @@ class PartyList(BasicWindow):
         self.btn_info_party.move(60, 20)
         self.btn_info_party.setEnabled(False)
         self.btn_info_party.clicked.connect(self.info_party)
+        self.btn_info_party.setStyleSheet("background-color: #B08AAD")
 
         self.btn_participate_party.resize(self.btn_participate_party.sizeHint())
         self.btn_participate_party.move(60, 40)
@@ -68,9 +69,11 @@ class PartyList(BasicWindow):
         self.btn_search_party.resize(self.btn_search_party.sizeHint())
         self.btn_search_party.move(60, 80)
         self.btn_search_party.clicked.connect(self.search_party)
+        self.btn_search_party.setStyleSheet("background-color: #B08AAD")
 
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
+        btn_quit.setStyleSheet("background-color: #B08AAD")
         btn_quit.resize(btn_quit.sizeHint())
         btn_quit.move(90, 100)
 

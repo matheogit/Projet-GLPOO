@@ -4,17 +4,24 @@ from controller.party_controller import PartyController
 
 class AddUserQt(BasicWindow):
 
-    def __init__(self, user, store, show_vue: BasicWindow = None):
+    def __init__(self, ancien, user, store, show_vue: BasicWindow = None):
         #self._member_controller = member_controller
         super().__init__()
+        self._ancien = ancien
         self._user = user
         self._store = store
         ##
+
         self.setStyleSheet("background-color: #B08AAD")
+
+        self.party = None
+        self.date = None
 
         self.name = QLineEdit()
         self.place = QLineEdit()
-        self.date = QLineEdit()
+        self.jour = QComboBox()
+        self.mois = QComboBox()
+        self.annee = QComboBox()
         self.nbPlace = QLineEdit()
         self.cost = QLineEdit()
         self.theme = QComboBox()
@@ -33,16 +40,27 @@ class AddUserQt(BasicWindow):
 
         Layout.addRow("Lieu", self.place)
 
-        Layout.addRow("Date", self.date)
+        for i in range(1, 32):
+            self.jour.addItem(str(i))
+        
+        for i in range(1, 13):
+            self.mois.addItem(str(i))
 
-        Layout.addRow("nbPlace", self.nbPlace)
+        for i in range(2021, 2030):
+            self.annee.addItem(str(i))
+
+        Layout.addRow("Jour", self.jour)
+        Layout.addRow("Mois", self.mois)
+        Layout.addRow("Année", self.annee)
+
+        Layout.addRow("Nb Place", self.nbPlace)
 
         Layout.addRow("Cost", self.cost)
 
         self.theme.addItem("Halloween")
         self.theme.addItem("Noel")
         self.theme.addItem("Black and White")
-        self.theme.addItem("Sexy")
+        self.theme.addItem("Deguiser")
         self.theme.addItem("None")
 
         Layout.addRow("Theme", self.theme)
@@ -67,11 +85,13 @@ class AddUserQt(BasicWindow):
         self.setLayout(outerLayout)
 
     def addParty(self):
+        from vue.user.show import Party
         party_controller = PartyController(self._store)
         # Show subscription formular
         #print(user)
+        self.date = self.jour.currentText() + '-' + self.mois.currentText() + '-' + self.annee.currentText()
         party_controller.set_creator_id(str(self._user.id))
-        party_controller.set_date(str(self.date.text()))
+        party_controller.set_date(str(self.date))
         party_controller.set_location(str(self.place.text()))
         party_controller.set_name(str(self.name.text()))
         party_controller.set_theme(str(self.theme.currentText()))
@@ -82,5 +102,10 @@ class AddUserQt(BasicWindow):
 
         party_controller.register()
 
+        if self.party is None:
+            self.party = Party(self._user, self._store)
+        self.party.show()
+        self._ancien.close()
         self.close()
+
 

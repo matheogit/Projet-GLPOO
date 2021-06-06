@@ -110,7 +110,7 @@ class Party(BasicWindow):
     def edit_party(self):
         if self.editPartyWindow is None:
             party = self.party_mapping[self.listwidget.currentRow()]
-            self.editPartyWindow = EditUserQt(party, self._store)
+            self.editPartyWindow = EditUserQt(self._user, party, self._store, self)
         self.editPartyWindow.show()
 
     def delete_party(self):

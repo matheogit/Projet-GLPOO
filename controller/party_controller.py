@@ -95,18 +95,18 @@ class PartyController:
     def get_state(self):
         return self._state
 
-    def register(self):
-        party = Party(id=self._id,
-                          name=self._name,
-                          location=self._location,
-                          date=self._date,
-                          creator_id=self._creator_id,
-                          total_place=self._total_place,
-                          theme=self._theme,
-                          price=self._price,
-                          grade=self._grade,
-                          state=self._state)
-        if self._id is None:
+    def register(self, id, name, location, date, creator_id, total_place, theme, price, grade, state):
+        party = Party(id=id,
+                          name=name,
+                          location=location,
+                          date=date,
+                          creator_id=creator_id,
+                          total_place=total_place,
+                          theme=theme,
+                          price=price,
+                          grade=grade,
+                          state=state)
+        if party.id is None:
             self._store.party().create(party)
             self._id = party.id
         else:

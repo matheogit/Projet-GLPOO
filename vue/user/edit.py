@@ -1,18 +1,20 @@
 from model.store import Store
 from PySide6.QtWidgets import QLineEdit, QWidget, QGridLayout, QPushButton, QLabel
 from vue.window import BasicWindow
-from controller.user_builder import UserBuilder
+from controller.party_controller import PartyController
 
 
 
 class EditUserQt(BasicWindow):
 
-    def __init__(self, party, store: Store):
+    def __init__(self, user, party, store: Store, ancienMenu):
         super().__init__()
 
         self.setStyleSheet("background-color: #B6CFDF")
 
+        self._ancienMenu = ancienMenu
         self._party = party
+        self._user = user
         self.window = QWidget()
         self._store = store
 
@@ -74,24 +76,11 @@ class EditUserQt(BasicWindow):
         self.show()
 
     def edit_party(self):
-        try:
-            user_builder = UserBuilder(self._store)
-            if self.password.text() == "" and self.confirmpassword.text() == "":
-                newpassword = self._user.password
-                user_builder.create_user(self.id, self.username.text(), self.firstname.text(), self.lastname.text(),
-                                         self.email.text(),
-                                         newpassword, self.gender.text(), self.age.text())
-                self.update_menu()
-            elif self.password.text() == self.confirmpassword.text():
-                newpassword = self.password.text()
-                user_builder.create_user(self.id, self.username.text(), self.firstname.text(), self.lastname.text(),
-                                         self.email.text(),
-                                         newpassword, self.gender.text(), self.age.text())
-                self.update_menu()
-            else:
-                self.error.setText("Mots de passes différents")
-        except:
-            self.error.setText("Informations non valides")
+        party_controller = PartyController(self._store)
+        party_controller.register(str(self.id), str(self.name.text()), str(self.location.text()), str(self.date.text()), self.creator_id,
+                                  str(self.total_place.text()), str(self.theme.text()), str(self.price.text()),
+                                  "N/A", "En cours")
+        self.update_menu()
 
     def update_menu(self):
         from vue.menu import MenuWindow

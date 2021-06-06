@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButto
 from vue.user.add import AddUserQt
 from vue.user.edit import EditUserQt
 from vue.user.delete import DeleteUserQt
-from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
 from model.store import Store
 from controller.party_controller import PartyController
@@ -23,7 +22,6 @@ class Party(BasicWindow):
         self.addPartyWindow = None
         self.editPartyWindow = None
         self.deletePartyWindow = None
-        self.searchPartyWindow = None
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
@@ -32,11 +30,9 @@ class Party(BasicWindow):
         self.btn_add_party = QPushButton('Create party', self)
         self.btn_edit_party = QPushButton('Edit party', self)
         self.btn_delete_party = QPushButton('Delete party', self)
-        self.btn_search_party = QPushButton('Search party', self)
         self.btn_add_party.setStyleSheet("background-color: #B08AAD")
         self.btn_delete_party.setStyleSheet("background-color: #B08AAD")
         self.btn_edit_party.setStyleSheet("background-color: #B08AAD")
-        self.btn_search_party.setStyleSheet("background-color: #B08AAD")
 
         self.party_mapping = {}
 
@@ -83,10 +79,6 @@ class Party(BasicWindow):
         self.btn_delete_party.setEnabled(False)
         self.btn_delete_party.clicked.connect(self.delete_party)
 
-        self.btn_search_party.resize(self.btn_search_party.sizeHint())
-        self.btn_search_party.move(60, 80)
-        self.btn_search_party.clicked.connect(self.search_party)
-
         btn_quit = QPushButton('Quitter', self)
         btn_quit.setStyleSheet("background-color: #B08AAD")
         btn_quit.clicked.connect(self.close)
@@ -97,7 +89,6 @@ class Party(BasicWindow):
         buttonlayout.addWidget(self.btn_add_party)
         buttonlayout.addWidget(self.btn_edit_party)
         buttonlayout.addWidget(self.btn_delete_party)
-        buttonlayout.addWidget(self.btn_search_party)
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 600, 600)
@@ -128,8 +119,5 @@ class Party(BasicWindow):
             self.deletePartyWindow = DeleteUserQt(self._member_controller, user['id'], self)
         self.deletePartyWindow.show()
 
-    def search_party(self):
-        if self.searchPartyWindow is None:
-            self.searchPartyWindow = SearchUserQt(self._member_controller, self)
-        self.searchPartyWindow.show()
+
 

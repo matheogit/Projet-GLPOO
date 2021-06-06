@@ -17,6 +17,7 @@ class EditUserQt(BasicWindow):
         self._user = user
         self.window = QWidget()
         self._store = store
+        self.party = None
 
         self.setup()
 
@@ -76,11 +77,16 @@ class EditUserQt(BasicWindow):
         self.show()
 
     def edit_party(self):
+        from vue.user.show import Party
         party_controller = PartyController(self._store)
         party_controller.register(str(self.id), str(self.name.text()), str(self.location.text()), str(self.date.text()), self.creator_id,
                                   str(self.total_place.text()), str(self.theme.text()), str(self.price.text()),
                                   "N/A", "En cours")
-        self.update_menu()
+        if self.party is None:
+            self.party = Party(self._user, self._store)
+        self.party.show()
+        self._ancienMenu.close()
+        self.close()
 
     def update_menu(self):
         from vue.menu import MenuWindow

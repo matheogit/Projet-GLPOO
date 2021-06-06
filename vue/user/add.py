@@ -15,10 +15,13 @@ class AddUserQt(BasicWindow):
         self.setStyleSheet("background-color: #B08AAD")
 
         self.party = None
+        self.date = None
 
         self.name = QLineEdit()
         self.place = QLineEdit()
-        self.date = QLineEdit()
+        self.jour = QComboBox()
+        self.mois = QComboBox()
+        self.annee = QComboBox()
         self.nbPlace = QLineEdit()
         self.cost = QLineEdit()
         self.theme = QComboBox()
@@ -37,16 +40,27 @@ class AddUserQt(BasicWindow):
 
         Layout.addRow("Lieu", self.place)
 
-        Layout.addRow("Date", self.date)
+        for i in range(1, 32):
+            self.jour.addItem(str(i))
+        
+        for i in range(1, 13):
+            self.mois.addItem(str(i))
 
-        Layout.addRow("nbPlace", self.nbPlace)
+        for i in range(2021, 2030):
+            self.annee.addItem(str(i))
+
+        Layout.addRow("Jour", self.jour)
+        Layout.addRow("Mois", self.mois)
+        Layout.addRow("Année", self.annee)
+
+        Layout.addRow("Nb Place", self.nbPlace)
 
         Layout.addRow("Cost", self.cost)
 
         self.theme.addItem("Halloween")
         self.theme.addItem("Noel")
         self.theme.addItem("Black and White")
-        self.theme.addItem("Sexy")
+        self.theme.addItem("Deguiser")
         self.theme.addItem("None")
 
         Layout.addRow("Theme", self.theme)
@@ -75,8 +89,9 @@ class AddUserQt(BasicWindow):
         party_controller = PartyController(self._store)
         # Show subscription formular
         #print(user)
+        self.date = self.jour.currentText() + '-' + self.mois.currentText() + '-' + self.annee.currentText()
         party_controller.set_creator_id(str(self._user.id))
-        party_controller.set_date(str(self.date.text()))
+        party_controller.set_date(str(self.date))
         party_controller.set_location(str(self.place.text()))
         party_controller.set_name(str(self.name.text()))
         party_controller.set_theme(str(self.theme.currentText()))

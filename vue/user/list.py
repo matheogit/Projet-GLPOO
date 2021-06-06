@@ -105,10 +105,9 @@ class PartyList(BasicWindow):
         self.show()
 
     def info_party(self):
-        if self.infoPartyWindow is None:
-            tmp = self.listwidget.currentRow()
-            party = self.partylist[tmp]
-            self.infoPartyWindow = PartyInfoQt(party, self._store)
+        tmp = self.listwidget.currentRow()
+        party = self.partylist[tmp]
+        self.infoPartyWindow = PartyInfoQt(party, self._store)
         self.infoPartyWindow.show()
 
     def participate_party(self):

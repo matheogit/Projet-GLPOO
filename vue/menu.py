@@ -1,5 +1,5 @@
 from vue.window import BasicWindow
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton, QLabel
+from PySide6.QtWidgets import QPushButton, QLabel, QGridLayout
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
@@ -40,18 +40,20 @@ class MenuWindow(BasicWindow):
         btn_rank.clicked.connect(self.rank_party)
         btn_rank.setStyleSheet("background-color: #B6CFDF;")
 
-        btn_quit = QPushButton('Quitter', self)
-        btn_quit.clicked.connect(QApplication.instance().quit)
+        btn_quit = QPushButton('Déconnection', self)
+        btn_quit.clicked.connect(self.disconnect)
         btn_quit.setStyleSheet("background-color: #B6CFDF;")
 
-        layout = QVBoxLayout()
-        layout.addWidget(btn_my)
-        layout.addWidget(btn_list)
-        layout.addWidget(btn_rank)
-        layout.addWidget(btn_quit)
+        layout = QGridLayout()
+        layout.addWidget(btn_profil, 0, 0, 1, 1)
+        layout.addWidget(textProfil, 0, 3, 1, 1)
+        layout.addWidget(btn_my, 1, 1, 1, 1)
+        layout.addWidget(btn_list, 2, 1, 1, 1)
+        layout.addWidget(btn_rank, 3, 1, 1, 1)
+        layout.addWidget(btn_quit, 4, 1, 1, 1)
+        layout.setRowStretch(4, 1)
 
         self.setGeometry(100, 100, 600, 600)
-        self.setWindowTitle('Menu des soirées')
         self.setLayout(layout)
         self.show()
 

@@ -88,7 +88,7 @@ class Register(BasicWindow):
                     gender = "M"
                 else:
                     gender = "W"
-                user_builder.create_user(self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), gender, self.age.text())
+                user_builder.create_user(None, self.pseudo.text(), self.prenom.text(), self.nom.text(), self.email.text(), self.password.text(), gender, self.age.text())
                 self.close()
             except:
                 self.error.setText("Vous avez mal rempli les informations")

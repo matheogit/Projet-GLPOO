@@ -1,5 +1,5 @@
 from model.store import Store
-from PySide6.QtWidgets import QWidget, QGridLayout, QLabel
+from PySide6.QtWidgets import QLineEdit, QWidget, QGridLayout, QPushButton, QLabel
 from vue.window import BasicWindow
 from controller.user_builder import UserBuilder
 
@@ -22,7 +22,7 @@ class UserInfo(BasicWindow):
 
         btn_edit_profile = QPushButton('Edit', self)
         btn_edit_profile.clicked.connect(self.edit_profile)
-
+        self.id = self._user.id
         self.username = QLineEdit()
         self.username.setText(self._user.username)
         self.lastname = QLineEdit()
@@ -77,12 +77,12 @@ class UserInfo(BasicWindow):
             user_builder = UserBuilder(self._store)
             if self.password.text() == "" and self.confirmpassword.text() == "":
                 newpassword = self._user.password
-                user_builder.update_user(self.username.text(), self.firstname.text(), self.lastname.text(), self.email.text(),
+                user_builder.create_user(self.id ,self.username.text(), self.firstname.text(), self.lastname.text(), self.email.text(),
                                          newpassword, self.gender.text(), self.age.text())
                 self.close()
             elif self.password.text() == self.confirmpassword.text():
                 newpassword = self.password.text()
-                user_builder.update_user(self.username.text(), self.firstname.text(), self.lastname.text(), self.email.text(),
+                user_builder.create_user(self.id, self.username.text(), self.firstname.text(), self.lastname.text(), self.email.text(),
                                          newpassword, self.gender.text(), self.age.text())
                 self.close()
             else:

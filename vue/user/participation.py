@@ -169,7 +169,7 @@ class Participation(BasicWindow):
 
     def participate_party(self):
         rowParty = self.listwidget.currentRow()
-        self.partycontroller.participate_to_party(self._user, self.partylist[rowParty])
+        self.partycontroller.participate_to_party(self._user, self.partylist[rowParty], '')
         self.btn_participate_party.setText('Vous participez déjà')
         self.btn_participate_party.setEnabled(False)
 

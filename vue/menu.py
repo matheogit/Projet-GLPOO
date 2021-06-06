@@ -1,5 +1,5 @@
 from vue.window import BasicWindow
-from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QGridLayout, QWidget
+from PySide6.QtWidgets import QLabel, QPushButton, QGridLayout, QWidget
 from vue.user.show import Party
 from vue.user.list import PartyList
 from vue.user.rank import PartyRank
@@ -20,7 +20,8 @@ class MenuWindow(BasicWindow):
 
         btn_profil = QPushButton('Profil', self)
         #btn_profil.clicked.connect(self.)
-
+        btn_profil.setStyleSheet("background-color: #B6CFDF;")
+        
         textProfil = QLabel('Bonjour, ' + self.user.username)
 
         btn_my = QPushButton('Mes soirées', self)

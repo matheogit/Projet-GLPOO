@@ -6,11 +6,12 @@ from controller.user_builder import UserBuilder
 
 class UserInfo(BasicWindow):
 
-    def __init__(self, user, store: Store):
+    def __init__(self, user, store: Store, ancienMenu):
         super().__init__()
 
         self.setStyleSheet("background-color: #B6CFDF")
 
+        self._ancienMenu = ancienMenu
         self._user = user
         self.window = QWidget()
         self._store = store
@@ -79,13 +80,20 @@ class UserInfo(BasicWindow):
                 newpassword = self._user.password
                 user_builder.create_user(self.id ,self.username.text(), self.firstname.text(), self.lastname.text(), self.email.text(),
                                          newpassword, self.gender.text(), self.age.text())
-                self.close()
+                self.update_menu()
             elif self.password.text() == self.confirmpassword.text():
                 newpassword = self.password.text()
                 user_builder.create_user(self.id, self.username.text(), self.firstname.text(), self.lastname.text(), self.email.text(),
                                          newpassword, self.gender.text(), self.age.text())
-                self.close()
+                self.update_menu()
             else:
                 self.error.setText("Mots de passes différents")
         except:
             self.error.setText("Informations non valides")
+
+    def update_menu(self):
+        from vue.menu import MenuWindow
+        self._ancienMenu.close()
+        self.party = MenuWindow(self._user, self._store)
+        self.party.show()
+        self.close()

@@ -59,7 +59,7 @@ class MenuWindow(BasicWindow):
 
 
     def my_info(self):
-        self.window = UserInfo(self._user, self._store)
+        self.window = UserInfo(self._user, self._store, self)
         self.window.show()
 
     def my_party(self):
